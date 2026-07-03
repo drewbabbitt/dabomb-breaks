@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop Cards | DaBomb Breaks — Sports Cards, Live Breaks &amp; Consignment</title>
+  <meta name="description" content="Buy graded sports cards and Pokémon singles — PSA, BGS and SGC slabs comped against 12 months of real sales. Basketball, football, baseball and TCG heat, shipped fast.">
+  <link rel="canonical" href="https://drewbabbitt.github.io/dabomb-breaks/shop.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DaBomb Breaks">
+  <meta property="og:title" content="Shop Cards | DaBomb Breaks">
+  <meta property="og:description" content="Buy graded sports cards and Pokémon singles — PSA, BGS and SGC slabs comped against 12 months of real sales. Basketball, football, baseball and TCG heat, shipped fast.">
+  <meta property="og:url" content="https://drewbabbitt.github.io/dabomb-breaks/shop.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Shop Cards — The Vault",
+    "url": "https://drewbabbitt.github.io/dabomb-breaks/shop.html",
+    "description": "Buy graded sports cards and Pokémon singles at DaBomb Breaks. PSA, BGS and SGC slabs comped against 12 months of real sales.",
+    "isPartOf": { "@type": "WebSite", "name": "DaBomb Breaks", "url": "https://drewbabbitt.github.io/dabomb-breaks/" },
+    "mainEntity": {
+      "@type": "ItemList",
+      "name": "DaBomb Breaks card marketplace",
+      "itemListOrder": "https://schema.org/ItemListUnordered",
+      "numberOfItems": 6,
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Basketball cards", "url": "https://drewbabbitt.github.io/dabomb-breaks/shop.html?sport=Basketball" },
+        { "@type": "ListItem", "position": 2, "name": "Football cards", "url": "https://drewbabbitt.github.io/dabomb-breaks/shop.html?sport=Football" },
+        { "@type": "ListItem", "position": 3, "name": "Baseball cards", "url": "https://drewbabbitt.github.io/dabomb-breaks/shop.html?sport=Baseball" },
+        { "@type": "ListItem", "position": 4, "name": "Pokémon singles", "url": "https://drewbabbitt.github.io/dabomb-breaks/shop.html?sport=Pok%C3%A9mon" },
+        { "@type": "ListItem", "position": 5, "name": "Soccer cards", "url": "https://drewbabbitt.github.io/dabomb-breaks/shop.html?sport=Soccer" },
+        { "@type": "ListItem", "position": 6, "name": "Hockey cards", "url": "https://drewbabbitt.github.io/dabomb-breaks/shop.html?sport=Hockey" }
+      ]
+    }
+  }
+  </script>
+  <style>
+    /* Shop page only — everything else comes from styles.css */
+    .hero-compact .wrap { padding-top: 54px; padding-bottom: 48px; }
+    .hero-compact h1 { font-size: clamp(2.3rem, 5vw, 3.5rem); }
+    .vault-live { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+    .shop-section { padding: 0 0 40px; }
+    .shop-seo { padding: 8px 0 48px; }
+    .shop-filterwrap {
+      background: rgba(11, 14, 23, .96);
+      padding: 18px 0 12px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 18px;
+    }
+    @media (min-width: 861px) {
+      .shop-filterwrap { position: sticky; top: 68px; z-index: 40; backdrop-filter: blur(9px); }
+    }
+    .shop-filterwrap .filter-bar { margin-bottom: 12px; }
+    .shop-filterwrap .filter-bar.chips-row { margin-bottom: 0; }
+    button.chip { font-family: var(--font-body); }
+    .filter-bar select.input { min-width: 128px; }
+    #results-count { font-size: .9rem; margin-bottom: 16px; }
+    #empty-state { padding: 56px 24px; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="hdrLg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff5a1f"/><stop offset="1" stop-color="#ffc233"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#161b2e" stroke="#232a44" stroke-width="2"/><path d="M34 8 L20 36 L30 36 L26 56 L46 26 L34 26 L42 8 Z" fill="url(#hdrLg)"/></svg>
+      <span class="brand-name">DaBomb <em>Breaks</em></span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop Cards</a></li>
+      <li><a href="breaks.html">Live Breaks</a></li>
+      <li><a href="consign.html">Consign</a></li>
+      <li><a href="ai.html">Card AI</a></li>
+      <li><a href="about.html">About</a></li>
+      <li class="nav-cta"><a class="btn btn-primary btn-sm" href="https://www.whatnot.com/user/dabomb_breaks" target="_blank" rel="noopener">Watch Live ↗</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero hero-compact">
+    <div class="wrap">
+      <span class="kicker">Shop Singles &amp; Slabs</span>
+      <h1>The <em>Vault</em></h1>
+      <p class="lead">Graded slabs, raw heat and Pokémon singles — every card comped against 12 months of real sales, priced to move and ready to ship.</p>
+      <div class="vault-live">
+        <span class="badge badge-live">Live Inventory</span>
+        <span class="muted" id="vault-count">Counting the vault…</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="shop-section">
+    <div class="wrap">
+
+      <div class="shop-filterwrap">
+        <div class="filter-bar">
+          <input type="search" id="f-search" class="search-input" placeholder="Search player, set or parallel…" aria-label="Search cards by name, set or parallel">
+          <select id="f-grade" class="input" aria-label="Filter by grade">
+            <option value="All">All Grades</option>
+            <option value="PSA 10">PSA 10</option>
+            <option value="PSA 9">PSA 9</option>
+            <option value="BGS 9.5">BGS 9.5</option>
+            <option value="SGC 10">SGC 10</option>
+            <option value="Raw">Raw</option>
+          </select>
+          <select id="f-status" class="input" aria-label="Filter by status">
+            <option value="All">All Statuses</option>
+            <option value="owned">In-House</option>
+            <option value="consigned">Consigned</option>
+          </select>
+          <select id="f-sort" class="input" aria-label="Sort cards">
+            <option value="featured">Featured</option>
+            <option value="price-asc">Price ↑</option>
+            <option value="price-desc">Price ↓</option>
+            <option value="trend">Trend ↑</option>
+            <option value="name">Name A-Z</option>
+          </select>
+        </div>
+        <div class="filter-bar chips-row" id="sport-chips" role="group" aria-label="Filter by sport">
+          <button type="button" class="chip active" data-sport="All">All</button>
+          <button type="button" class="chip" data-sport="Basketball">Basketball</button>
+          <button type="button" class="chip" data-sport="Football">Football</button>
+          <button type="button" class="chip" data-sport="Baseball">Baseball</button>
+          <button type="button" class="chip" data-sport="Pokémon">Pokémon</button>
+          <button type="button" class="chip" data-sport="Soccer">Soccer</button>
+          <button type="button" class="chip" data-sport="Hockey">Hockey</button>
+        </div>
+      </div>
+
+      <p class="muted" id="results-count" aria-live="polite">Loading the vault…</p>
+      <div class="grid grid-4" id="card-grid"></div>
+      <div class="panel center hidden" id="empty-state"></div>
+
+    </div>
+  </section>
+
+  <section class="shop-seo">
+    <div class="wrap">
+      <div class="grid grid-2">
+        <div class="panel">
+          <span class="kicker">Market Data</span>
+          <h3 class="mt-1">Every Card Comped</h3>
+          <p class="muted mt-1">Buying a card without comps is just gambling with extra steps. Every single in the vault carries 12 months of price history plus its last recorded comps, pulled from major marketplaces and our own live sales. You see where the market has been, where it is trending and what the last one actually sold for — before you spend a dollar. That is how we price graded sports cards and Pokémon singles: real sales, not wishful thinking.</p>
+        </div>
+        <div class="panel">
+          <span class="kicker">Authentication</span>
+          <h3 class="mt-1">Graded &amp; Verified</h3>
+          <p class="muted mt-1">The slabs in the vault are graded by PSA, BGS and SGC — cert numbers verified, cases inspected, nothing questionable sneaking past us. Raw singles get checked under the same lights we rip under on our live breaks. Whether you are hunting a PSA 10 rookie, a BGS 9.5 parallel or a raw flip, what is listed is what lands at your door — packed tight and shipped fast.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:12px">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:30px;height:30px"><defs><linearGradient id="ftrLg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff5a1f"/><stop offset="1" stop-color="#ffc233"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#161b2e" stroke="#232a44" stroke-width="2"/><path d="M34 8 L20 36 L30 36 L26 56 L46 26 L34 26 L42 8 Z" fill="url(#ftrLg)"/></svg>
+          <span class="brand-name" style="font-size:1.15rem">DaBomb <em>Breaks</em></span>
+        </a>
+        <p class="muted" style="font-size:.9rem;max-width:280px">Sports cards, live breaks &amp; collectibles. Rip with us live on Whatnot — 4.8★ rated seller, 459+ orders shipped.</p>
+      </div>
+      <div>
+        <h4>Marketplace</h4>
+        <ul>
+          <li><a href="shop.html">Shop All Cards</a></li>
+          <li><a href="shop.html?sport=Basketball">Basketball</a></li>
+          <li><a href="shop.html?sport=Football">Football</a></li>
+          <li><a href="shop.html?sport=Baseball">Baseball</a></li>
+          <li><a href="shop.html?sport=Pok%C3%A9mon">Pokémon &amp; TCG</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="breaks.html">Live Breaks</a></li>
+          <li><a href="consign.html">Consignment</a></li>
+          <li><a href="ai.html">Card AI Tools</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <ul>
+          <li><a href="https://www.whatnot.com/user/dabomb_breaks" target="_blank" rel="noopener">Whatnot ↗</a></li>
+          <li><a href="about.html#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-note">
+      <span>© <span data-year>2026</span> DaBomb Breaks. All rights reserved.</span>
+      <span>Demo site — sample market data, plus live listings pulled from our Whatnot shop.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/inventory-data.js"></script>
+<script src="js/app.js"></script>
+<script>
+/* Shop page — vault filtering. All client-side; safe when INVENTORY is absent. */
+(function () {
+  var SPORTS = ["All", "Basketball", "Football", "Baseball", "Pokémon", "Soccer", "Hockey"];
+
+  var searchEl = document.getElementById("f-search");
+  var gradeEl  = document.getElementById("f-grade");
+  var statusEl = document.getElementById("f-status");
+  var sortEl   = document.getElementById("f-sort");
+  var chipsEl  = document.getElementById("sport-chips");
+  var gridEl   = document.getElementById("card-grid");
+  var emptyEl  = document.getElementById("empty-state");
+  var countEl  = document.getElementById("results-count");
+  var heroEl   = document.getElementById("vault-count");
+
+  var state = { q: "", sport: "All", grade: "All", status: "All", sort: "featured" };
+
+  /* Pre-apply ?q= and ?sport= deep links (used by footer + home) */
+  var qParam = getParam("q");
+  if (qParam) state.q = qParam.trim();
+  var sportParam = getParam("sport");
+  if (sportParam) {
+    for (var i = 0; i < SPORTS.length; i++) {
+      if (SPORTS[i].toLowerCase() === sportParam.toLowerCase()) { state.sport = SPORTS[i]; break; }
+    }
+  }
+  searchEl.value = state.q;
+
+  function syncChips() {
+    var chips = chipsEl.querySelectorAll(".chip");
+    for (var i = 0; i < chips.length; i++) {
+      chips[i].classList.toggle("active", chips[i].getAttribute("data-sport") === state.sport);
+    }
+  }
+
+  function matches(card) {
+    if (state.sport !== "All" && card.sport !== state.sport) return false;
+    if (state.grade !== "All" && card.grade !== state.grade) return false;
+    if (state.status !== "All" && card.status !== state.status) return false;
+    if (state.q) {
+      var hay = [card.name, card.set, card.parallel, card.year, card.cardNumber]
+        .filter(function (v) { return v != null; }).join(" ").toLowerCase();
+      var terms = state.q.toLowerCase().split(/\s+/);
+      for (var t = 0; t < terms.length; t++) {
+        if (terms[t] && hay.indexOf(terms[t]) === -1) return false;
+      }
+    }
+    return true;
+  }
+
+  function sortCards(list) {
+    var wrapped = list.map(function (c, i) { return { c: c, i: i }; });
+    wrapped.sort(function (a, b) {
+      var d = 0;
+      if (state.sort === "price-asc")       d = (a.c.price || 0) - (b.c.price || 0);
+      else if (state.sort === "price-desc") d = (b.c.price || 0) - (a.c.price || 0);
+      else if (state.sort === "trend")      d = (b.c.trend || 0) - (a.c.trend || 0);
+      else if (state.sort === "name")       d = String(a.c.name || "").localeCompare(String(b.c.name || ""));
+      else d = (b.c.featured ? 1 : 0) - (a.c.featured ? 1 : 0);
+      return d || (a.i - b.i);
+    });
+    return wrapped.map(function (w) { return w.c; });
+  }
+
+  function clearFilters() {
+    state.q = ""; state.sport = "All"; state.grade = "All"; state.status = "All"; state.sort = "featured";
+    searchEl.value = ""; gradeEl.value = "All"; statusEl.value = "All"; sortEl.value = "featured";
+    syncChips();
+    render();
+  }
+
+  function render() {
+    var inv = getInventory();
+    var hits = sortCards(inv.filter(matches));
+    countEl.textContent = "Showing " + hits.length + " of " + inv.length + (inv.length === 1 ? " card" : " cards");
+
+    if (!hits.length) {
+      gridEl.innerHTML = "";
+      gridEl.classList.add("hidden");
+      emptyEl.classList.remove("hidden");
+      if (!inv.length) {
+        emptyEl.innerHTML = '<span class="kicker">Restock In Progress</span>'
+          + '<h3 style="margin:10px 0 6px">The Vault Is Being Reloaded</h3>'
+          + '<p class="muted" style="max-width:460px;margin:0 auto">Fresh slabs are getting comped and photographed right now. Check back shortly — or catch the next rip live.</p>'
+          + '<a class="btn btn-primary btn-sm mt-3" href="https://www.whatnot.com/user/dabomb_breaks" target="_blank" rel="noopener">Watch Live ↗</a>';
+      } else {
+        emptyEl.innerHTML = '<span class="kicker">No Hits</span>'
+          + '<h3 style="margin:10px 0 6px">Nothing Matches That Pull</h3>'
+          + '<p class="muted" style="max-width:460px;margin:0 auto">Loosen a filter or clear the search — the vault runs deeper than this.</p>'
+          + '<button type="button" class="btn btn-ghost btn-sm mt-3" id="clear-filters">Clear All Filters</button>';
+        var cf = document.getElementById("clear-filters");
+        if (cf) cf.addEventListener("click", clearFilters);
+      }
+    } else {
+      emptyEl.classList.add("hidden");
+      emptyEl.innerHTML = "";
+      gridEl.classList.remove("hidden");
+      gridEl.innerHTML = hits.map(function (c) { return cardTileHTML(c); }).join("");
+    }
+  }
+
+  /* Hero live count */
+  var invNow = getInventory();
+  heroEl.innerHTML = invNow.length
+    ? "<strong>" + invNow.length + "</strong> " + (invNow.length === 1 ? "card" : "cards") + " in the vault right now"
+    : "Restock in progress — new heat landing soon";
+
+  /* Events */
+  searchEl.addEventListener("input", function () { state.q = searchEl.value.trim(); render(); });
+  gradeEl.addEventListener("change", function () { state.grade = gradeEl.value; render(); });
+  statusEl.addEventListener("change", function () { state.status = statusEl.value; render(); });
+  sortEl.addEventListener("change", function () { state.sort = sortEl.value; render(); });
+  chipsEl.addEventListener("click", function (e) {
+    var chip = e.target && e.target.closest ? e.target.closest(".chip") : null;
+    if (!chip || !chipsEl.contains(chip)) return;
+    state.sport = chip.getAttribute("data-sport") || "All";
+    syncChips();
+    render();
+  });
+
+  syncChips();
+  render();
+})();
+</script>
+</body>
+</html>

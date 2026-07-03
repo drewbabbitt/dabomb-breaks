@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sports Card AI | DaBomb Breaks — Sports Cards, Live Breaks &amp; Consignment</title>
+  <meta name="description" content="Preview the DaBomb Card AI — an assistant that prices sports cards from live comps, tracks price alerts and watchlists, and delivers market intelligence across the hobby.">
+  <link rel="canonical" href="https://drewbabbitt.github.io/dabomb-breaks/ai.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DaBomb Breaks">
+  <meta property="og:title" content="Sports Card AI | DaBomb Breaks">
+  <meta property="og:description" content="Preview the DaBomb Card AI — an assistant that prices sports cards from live comps, tracks price alerts and watchlists, and delivers market intelligence across the hobby.">
+  <meta property="og:url" content="https://drewbabbitt.github.io/dabomb-breaks/ai.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* ---- ai.html page-only styles ---- */
+    .chat-shell { max-width: 720px; margin: 0 auto; }
+    .chat-scroll { max-height: 420px; overflow-y: auto; padding-right: 4px; scroll-behavior: smooth; }
+    .chat-scroll::-webkit-scrollbar { width: 8px; }
+    .chat-scroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: 8px; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .chip:disabled, .chip[data-used="1"] { opacity: .4; cursor: not-allowed; pointer-events: none; }
+    .roadmap-arrow { display: flex; align-items: center; justify-content: center; color: var(--muted); font-family: var(--font-display); font-size: 1.6rem; }
+    @media (max-width: 620px) { .roadmap-arrow { transform: rotate(90deg); } }
+    .mover-empty { padding: 28px 16px; text-align: center; }
+    .typing-dots span { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--muted); margin-right: 3px; animation: blinkDot 1.2s infinite; }
+    .typing-dots span:nth-child(2) { animation-delay: .2s; } .typing-dots span:nth-child(3) { animation-delay: .4s; }
+    @keyframes blinkDot { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="hdrLg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff5a1f"/><stop offset="1" stop-color="#ffc233"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#161b2e" stroke="#232a44" stroke-width="2"/><path d="M34 8 L20 36 L30 36 L26 56 L46 26 L34 26 L42 8 Z" fill="url(#hdrLg)"/></svg>
+      <span class="brand-name">DaBomb <em>Breaks</em></span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop Cards</a></li>
+      <li><a href="breaks.html">Live Breaks</a></li>
+      <li><a href="consign.html">Consign</a></li>
+      <li><a href="ai.html">Card AI</a></li>
+      <li><a href="about.html">About</a></li>
+      <li class="nav-cta"><a class="btn btn-primary btn-sm" href="https://www.whatnot.com/user/dabomb_breaks" target="_blank" rel="noopener">Watch Live ↗</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section style="padding-bottom:0">
+    <div class="wrap">
+      <span class="kicker">Platform Preview</span>
+      <h1 class="mt-1">The Sports Card <em style="font-style:normal;color:var(--blast)">AI</em></h1>
+      <p class="lead mt-2">An AI engine that watches comps across the hobby, prices every card in the vault, tracks who owns what between consignors and in-house stock, and runs the ads that move inventory — so pricing decisions are backed by data, not gut feel.</p>
+      <p class="muted mt-2" style="font-size:.9rem">
+        <span class="badge badge-grade">Preview</span>
+        &nbsp;Interactive preview — full engine ships in Phase 2.
+      </p>
+    </div>
+  </section>
+
+  <!-- CHAT DEMO -->
+  <section>
+    <div class="wrap">
+      <div class="chat-shell">
+        <div class="section-head" style="margin-bottom:18px">
+          <div>
+            <span class="kicker">Try It</span>
+            <h2>Ask the Card AI</h2>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="chat chat-scroll" id="aiChat">
+            <div class="msg msg-user">What's my 2023 Prizm Silver rookie worth graded PSA 10?</div>
+            <div class="msg msg-ai"><span class="tag">DaBomb Card AI</span>Last 5 comps average $842 (▲3.2% over 30 days). Population report shows 1,204 at this grade across major services. Want me to set a price alert or generate a consignment quote?</div>
+          </div>
+          <div class="chip-row" id="aiChips">
+            <button type="button" class="chip" data-q="price">Price my PSA 10 Wemby rookie</button>
+            <button type="button" class="chip" data-q="hot">What's hot in baseball this week?</button>
+            <button type="button" class="chip" data-q="consign">Is my consignment sold yet?</button>
+            <button type="button" class="chip" data-q="alert">Set an alert for Charizard under $500</button>
+          </div>
+        </div>
+        <p class="muted mt-2" style="font-size:.82rem">Scripted preview — responses are sample data, not live market analysis.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT THE ENGINE DOES -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="kicker">Under the Hood</span>
+          <h2>What the Engine Does</h2>
+        </div>
+      </div>
+      <div class="grid grid-3">
+        <div class="panel panel-hover">
+          <h3>Live Comp Aggregation</h3>
+          <p class="muted mt-1" style="font-size:.93rem">Pulls recent sales from eBay, marketplace listings and live-show sales so every price reflects what the card actually sold for — not an asking price.</p>
+        </div>
+        <div class="panel panel-hover">
+          <h3>Price Alerts &amp; Watchlists</h3>
+          <p class="muted mt-1" style="font-size:.93rem">Save any card and get pinged the moment it crosses a price threshold, so you never miss a buy window or a good time to sell.</p>
+        </div>
+        <div class="panel panel-hover">
+          <h3>Instant Consignment Quotes</h3>
+          <p class="muted mt-1" style="font-size:.93rem">Snap a photo or enter a card's details and get a comp-backed payout estimate in seconds — before you ever ship a box.</p>
+        </div>
+        <div class="panel panel-hover">
+          <h3>Inventory Valuation</h3>
+          <p class="muted mt-1" style="font-size:.93rem">The entire vault is marked-to-market nightly, so total value, gainers and coolers are always current — not stale spreadsheet math.</p>
+        </div>
+        <div class="panel panel-hover">
+          <h3>Ownership Ledger</h3>
+          <p class="muted mt-1" style="font-size:.93rem">Tracks which cards are consigned versus in-house, plus payout status for every consignor, in one transparent record.</p>
+        </div>
+        <div class="panel panel-hover">
+          <h3>Ad Automation</h3>
+          <p class="muted mt-1" style="font-size:.93rem">Feeds fresh listings straight into shopping and social ad campaigns, so newly priced inventory starts finding buyers automatically.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKET MOVERS -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="kicker">This Week</span>
+          <h2>Market Movers</h2>
+        </div>
+        <a class="btn btn-ghost btn-sm" href="shop.html">Browse Full Inventory →</a>
+      </div>
+      <div class="grid grid-2" id="moversGrid">
+        <!-- filled by JS, or empty-state fallback -->
+      </div>
+    </div>
+  </section>
+
+  <!-- VAULT INTELLIGENCE -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="kicker">Live From the Vault</span>
+          <h2>Vault Intelligence</h2>
+        </div>
+      </div>
+      <div class="stat-bar" id="vaultStats">
+        <div class="stat"><div class="stat-num" id="statValue">$0</div><div class="stat-label">Total Vault Value</div></div>
+        <div class="stat"><div class="stat-num" id="statCount">0</div><div class="stat-label">Cards Tracked</div></div>
+        <div class="stat"><div class="stat-num" id="statConsigned">0</div><div class="stat-label">Consigned Items</div></div>
+        <div class="stat"><div class="stat-num" id="statTrend">0%</div><div class="stat-label">Avg 30d Trend</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="kicker">Where This Is Going</span>
+          <h2>Roadmap</h2>
+        </div>
+      </div>
+      <div class="grid grid-3">
+        <div class="panel panel-hover">
+          <span class="badge badge-owned">Phase 1</span>
+          <h3 class="mt-1">Demo (This Site)</h3>
+          <p class="muted mt-1" style="font-size:.93rem">A working preview of the interface and canned intelligence — chat demo, market movers and vault stats built on sample inventory.</p>
+        </div>
+        <div class="panel panel-hover">
+          <span class="badge badge-grade">Phase 2</span>
+          <h3 class="mt-1">Live Data</h3>
+          <p class="muted mt-1" style="font-size:.93rem">Real price feeds, live alerts on your watchlist, and a consignor portal so sellers can track status and payouts themselves.</p>
+        </div>
+        <div class="panel panel-hover">
+          <span class="badge badge-consigned">Phase 3</span>
+          <h3 class="mt-1">Autonomous</h3>
+          <p class="muted mt-1" style="font-size:.93rem">AI-driven pricing that adjusts itself, automated ad ops across channels, and restock intelligence that flags what to buy next.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:12px">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:30px;height:30px"><defs><linearGradient id="ftrLg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff5a1f"/><stop offset="1" stop-color="#ffc233"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#161b2e" stroke="#232a44" stroke-width="2"/><path d="M34 8 L20 36 L30 36 L26 56 L46 26 L34 26 L42 8 Z" fill="url(#ftrLg)"/></svg>
+          <span class="brand-name" style="font-size:1.15rem">DaBomb <em>Breaks</em></span>
+        </a>
+        <p class="muted" style="font-size:.9rem;max-width:280px">Sports cards, live breaks &amp; collectibles. Rip with us live on Whatnot — 4.8★ rated seller, 459+ orders shipped.</p>
+      </div>
+      <div>
+        <h4>Marketplace</h4>
+        <ul>
+          <li><a href="shop.html">Shop All Cards</a></li>
+          <li><a href="shop.html?sport=Basketball">Basketball</a></li>
+          <li><a href="shop.html?sport=Football">Football</a></li>
+          <li><a href="shop.html?sport=Baseball">Baseball</a></li>
+          <li><a href="shop.html?sport=Pok%C3%A9mon">Pokémon &amp; TCG</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="breaks.html">Live Breaks</a></li>
+          <li><a href="consign.html">Consignment</a></li>
+          <li><a href="ai.html">Card AI Tools</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <ul>
+          <li><a href="https://www.whatnot.com/user/dabomb_breaks" target="_blank" rel="noopener">Whatnot ↗</a></li>
+          <li><a href="about.html#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-note">
+      <span>© <span data-year>2026</span> DaBomb Breaks. All rights reserved.</span>
+      <span>Demo site — sample market data, plus live listings pulled from our Whatnot shop.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/inventory-data.js"></script>
+<script src="js/app.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  /* ---------------- Vault Intelligence stats ---------------- */
+  var inv = getInventory();
+  var statValueEl = document.getElementById("statValue");
+  var statCountEl = document.getElementById("statCount");
+  var statConsignedEl = document.getElementById("statConsigned");
+  var statTrendEl = document.getElementById("statTrend");
+
+  if (inv.length) {
+    var totalValue = inv.reduce(function (sum, c) { return sum + (Number(c.price) || 0); }, 0);
+    var consignedCount = inv.filter(function (c) { return c.status === "consigned"; }).length;
+    var avgTrend = inv.reduce(function (sum, c) { return sum + (Number(c.trend) || 0); }, 0) / inv.length;
+
+    statValueEl.textContent = "$" + Math.round(totalValue).toLocaleString("en-US");
+    statCountEl.textContent = inv.length.toLocaleString("en-US");
+    statConsignedEl.textContent = consignedCount.toLocaleString("en-US");
+    statTrendEl.textContent = (avgTrend >= 0 ? "▲" : "▼") + Math.abs(avgTrend).toFixed(1) + "%";
+    statTrendEl.style.color = avgTrend >= 0 ? "var(--green)" : "var(--red)";
+  } else {
+    statValueEl.textContent = "$0";
+    statCountEl.textContent = "0";
+    statConsignedEl.textContent = "0";
+    statTrendEl.textContent = "0%";
+  }
+
+  /* ---------------- Market Movers ---------------- */
+  var moversGrid = document.getElementById("moversGrid");
+  if (moversGrid) {
+    if (inv.length) {
+      var withHistory = inv.filter(function (c) { return Array.isArray(c.priceHistory) && c.priceHistory.length; });
+      var byTrendDesc = withHistory.slice().sort(function (a, b) { return (b.trend || 0) - (a.trend || 0); }).slice(0, 5);
+      var byTrendAsc = withHistory.slice().sort(function (a, b) { return (a.trend || 0) - (b.trend || 0); }).slice(0, 5);
+
+      moversGrid.innerHTML = buildMoverTable("Top Gainers", byTrendDesc) + buildMoverTable("Top Cooling", byTrendAsc);
+    } else {
+      moversGrid.innerHTML =
+        '<div class="table-wrap mover-empty"><p class="muted">Market data loads with the demo inventory.</p></div>'
+        + '<div class="table-wrap mover-empty"><p class="muted">Market data loads with the demo inventory.</p></div>';
+    }
+  }
+
+  function buildMoverTable(title, cards) {
+    if (!cards.length) {
+      return '<div><h3 class="mb-2">' + title + '</h3><div class="table-wrap mover-empty"><p class="muted">Market data loads with the demo inventory.</p></div></div>';
+    }
+    var rows = cards.map(function (card) {
+      var trend = Number(card.trend) || 0;
+      var color = trend >= 0 ? "#2fd47a" : "#ff4d5e";
+      var setLine = (card.year ? card.year + " " : "") + (card.set || "");
+      var history = Array.isArray(card.priceHistory) && card.priceHistory.length ? card.priceHistory : [card.price || 0, card.price || 0];
+      return '<tr onclick="window.location.href=\'card.html?id=' + encodeURIComponent(card.id) + '\'" style="cursor:pointer">'
+        + '<td><div style="font-weight:700">' + escHTML(card.name) + '</div><div class="muted" style="font-size:.82rem">' + escHTML(setLine) + '</div></td>'
+        + '<td>' + fmtMoney(card.price) + '</td>'
+        + '<td style="color:' + color + ';font-weight:600">' + (trend >= 0 ? "▲" : "▼") + ' ' + Math.abs(trend).toFixed(1) + '%</td>'
+        + '<td>' + sparklineSVG(history, 110, 30, color) + '</td>'
+        + '</tr>';
+    }).join("");
+    return '<div><h3 class="mb-2">' + title + '</h3><div class="table-wrap"><table class="data">'
+      + '<thead><tr><th>Card</th><th>Price</th><th>30d</th><th>12-mo</th></tr></thead>'
+      + '<tbody>' + rows + '</tbody></table></div></div>';
+  }
+
+  /* ---------------- Chat Demo ---------------- */
+  var chatEl = document.getElementById("aiChat");
+  var chips = document.querySelectorAll("#aiChips .chip");
+
+  var chipText = {
+    price: "Price my PSA 10 Wemby rookie",
+    hot: "What's hot in baseball this week?",
+    consign: "Is my consignment sold yet?",
+    alert: "Set an alert for Charizard under $500"
+  };
+
+  function buildHotAnswer() {
+    var baseball = inv.filter(function (c) { return c.sport === "Baseball" && typeof c.trend === "number"; });
+    if (baseball.length >= 2) {
+      var top2 = baseball.slice().sort(function (a, b) { return (b.trend || 0) - (a.trend || 0); }).slice(0, 2);
+      var lines = top2.map(function (c) {
+        var trend = Number(c.trend) || 0;
+        var setLine = (c.year ? c.year + " " : "") + (c.set || "");
+        return escHTML(c.name) + " (" + escHTML(setLine) + ") is " + (trend >= 0 ? "up" : "down") + " " + Math.abs(trend).toFixed(1) + "% over 30 days";
+      });
+      return "Baseball's heating up right now — " + lines.join(", and ") + ". Both are seeing above-average comp velocity this week. Want me to add either to a watchlist?";
+    }
+    return "Baseball's heating up right now — Bowman Chrome 1st-year autos are up double digits on average, and vintage Topps rookies in PSA 8+ are seeing renewed comp velocity ahead of the season. Want me to add a specific player to a watchlist?";
+  }
+
+  var answers = {
+    price: "Your PSA 10 Wembanyama rookie is trending well. Last 6 comps average $1,180 (▲5.4% over 30 days), with population reports showing supply staying tight at that grade. Current ask range across the marketplace is $1,140–$1,225. Want a consignment quote or a price alert set at your target?",
+    hot: buildHotAnswer(),
+    consign: "Checking your consignment ledger — status updates flow in real time once Phase 2 goes live, showing sold/unsold plus payout timing for every item you've sent in. For this preview, think of it as: submitted → listed → sold → paid, all trackable in one place. Want to see how the payout schedule works?",
+    alert: "Alert set (preview) — I'll flag any raw or graded Charizard listing under $500 across tracked comps. In the live version this pings you the moment a matching listing or comp appears, so you can move before the window closes. Want me to widen this to include PSA 9s specifically?"
+  };
+
+  function appendMsg(role, html, tag) {
+    var msg = document.createElement("div");
+    msg.className = "msg " + (role === "user" ? "msg-user" : "msg-ai");
+    if (role === "ai") {
+      var tagSpan = document.createElement("span");
+      tagSpan.className = "tag";
+      tagSpan.textContent = tag || "DaBomb Card AI";
+      msg.appendChild(tagSpan);
+      msg.appendChild(document.createTextNode(html));
+    } else {
+      msg.textContent = html;
+    }
+    chatEl.appendChild(msg);
+    scrollChatToBottom();
+    return msg;
+  }
+
+  function scrollChatToBottom() {
+    chatEl.scrollTop = chatEl.scrollHeight;
+  }
+
+  chips.forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      if (chip.getAttribute("data-used") === "1") return;
+      var key = chip.getAttribute("data-q");
+      var question = chipText[key] || chip.textContent;
+      var answer = answers[key] || "I don't have a canned answer for that yet — ask me something else!";
+
+      chip.setAttribute("data-used", "1");
+      chip.disabled = true;
+
+      appendMsg("user", question);
+
+      var typing = document.createElement("div");
+      typing.className = "msg msg-ai";
+      typing.innerHTML = '<span class="tag">DaBomb Card AI</span><span class="typing-dots"><span></span><span></span><span></span></span>';
+      chatEl.appendChild(typing);
+      scrollChatToBottom();
+
+      setTimeout(function () {
+        if (typing.parentNode) typing.parentNode.removeChild(typing);
+        appendMsg("ai", answer);
+      }, 600);
+    });
+  });
+});
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "DaBomb Card AI",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "description": "An AI assistant that prices sports cards from live market comps, tracks price alerts and watchlists, generates consignment quotes, and delivers marked-to-market inventory intelligence.",
+  "url": "https://drewbabbitt.github.io/dabomb-breaks/ai.html",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "description": "Interactive preview — full engine ships in Phase 2."
+  }
+}
+</script>
+</body>
+</html>

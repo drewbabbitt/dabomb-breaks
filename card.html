@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Details | DaBomb Breaks — Sports Cards, Live Breaks &amp; Consignment</title>
+  <meta name="description" content="Card details, live pricing, 12-month price history and recent comps for graded sports cards and Pokémon singles at DaBomb Breaks.">
+  <link rel="canonical" href="https://drewbabbitt.github.io/dabomb-breaks/card.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DaBomb Breaks">
+  <meta property="og:title" content="Card Details | DaBomb Breaks">
+  <meta property="og:description" content="Card details, live pricing, 12-month price history and recent comps for graded sports cards and Pokémon singles at DaBomb Breaks.">
+  <meta property="og:url" content="https://drewbabbitt.github.io/dabomb-breaks/card.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Card detail page only — everything else comes from styles.css */
+    .sec-detail { padding: 36px 0 18px; }
+    .sec-tight { padding: 30px 0 12px; }
+    .sec-related { padding: 34px 0 30px; }
+    .sec-notfound { padding: 72px 0 40px; }
+    .crumbs { display: flex; gap: 10px; flex-wrap: wrap; font-size: .86rem; color: var(--muted); margin-bottom: 26px; }
+    .crumbs a { color: var(--muted); }
+    .crumbs a:hover { color: var(--blast-2); }
+    .crumbs .sep { color: #3a4266; }
+    .crumbs .here { color: var(--text); }
+    .detail-cols { display: grid; grid-template-columns: minmax(280px, 420px) 1fr; gap: 36px; align-items: start; }
+    @media (max-width: 900px) { .detail-cols { grid-template-columns: 1fr; } }
+    .art-panel { padding: 18px; }
+    .art-panel svg { width: 100%; height: auto; border-radius: 10px; }
+    .art-note { font-size: .78rem; margin-top: 12px; text-align: center; }
+    .detail-info h1 { font-size: clamp(2rem, 4.5vw, 2.9rem); }
+    .setline { margin-top: 6px; font-size: 1rem; }
+    .price-row { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-top: 20px; }
+    .detail-price { font-family: var(--font-display); font-size: 2.8rem; font-weight: 700; letter-spacing: .5px; line-height: 1; }
+    .lastcomp { font-size: .9rem; margin-top: 6px; }
+    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+    .offer-box { margin-top: 16px; padding: 20px; }
+    .offer-fields { display: flex; gap: 14px; flex-wrap: wrap; margin: 14px 0 16px; }
+    .offer-fields .field { flex: 1; min-width: 190px; }
+    .note { border: 1px solid; border-radius: var(--radius-sm); padding: 14px 18px; font-size: .92rem; line-height: 1.55; margin-top: 18px; }
+    .note-purple { background: rgba(160, 107, 255, .09); border-color: rgba(160, 107, 255, .45); color: #cfb9ff; }
+    .note-blue { background: rgba(77, 163, 255, .09); border-color: rgba(77, 163, 255, .4); color: #b3d4ff; }
+    .hist-stats .stat-num { font-size: 1.7rem; }
+    .hist-stats .stat-num.up { color: var(--green); }
+    .hist-stats .stat-num.down { color: var(--red); }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="hdrLg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff5a1f"/><stop offset="1" stop-color="#ffc233"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#161b2e" stroke="#232a44" stroke-width="2"/><path d="M34 8 L20 36 L30 36 L26 56 L46 26 L34 26 L42 8 Z" fill="url(#hdrLg)"/></svg>
+      <span class="brand-name">DaBomb <em>Breaks</em></span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop Cards</a></li>
+      <li><a href="breaks.html">Live Breaks</a></li>
+      <li><a href="consign.html">Consign</a></li>
+      <li><a href="ai.html">Card AI</a></li>
+      <li><a href="about.html">About</a></li>
+      <li class="nav-cta"><a class="btn btn-primary btn-sm" href="https://www.whatnot.com/user/dabomb_breaks" target="_blank" rel="noopener">Watch Live ↗</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+
+  <div id="detail-view" class="hidden">
+
+    <section class="sec-detail">
+      <div class="wrap">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="index.html">Home</a><span class="sep">/</span>
+          <a href="shop.html">Shop</a><span class="sep">/</span>
+          <span class="here" id="crumb-name">Card</span>
+        </nav>
+
+        <div class="detail-cols">
+          <div class="panel art-panel">
+            <div id="c-art"></div>
+            <p class="muted art-note" id="art-note">Generated preview — the live listing carries full slab photos, front and back.</p>
+          </div>
+
+          <div class="detail-info">
+            <h1 id="c-name">Card</h1>
+            <p class="muted setline" id="c-setline"></p>
+            <div class="tag-row mt-2" id="c-badges"></div>
+
+            <div class="price-row">
+              <span class="detail-price" id="c-price"></span>
+              <span id="c-trend"></span>
+            </div>
+            <p class="muted lastcomp" id="c-lastcomp"></p>
+
+            <div class="cta-row">
+              <a class="btn btn-primary" id="buy-btn" href="https://www.whatnot.com/user/dabomb_breaks" target="_blank" rel="noopener">Buy on Whatnot ↗</a>
+              <button type="button" class="btn btn-ghost" id="offer-btn">Make an Offer</button>
+              <a class="btn btn-gold" href="consign.html">Consign One Like This</a>
+            </div>
+
+            <div class="panel hidden offer-box" id="offer-box">
+              <form id="offer-form">
+                <h3 style="font-size:1.05rem">Shoot Your Shot</h3>
+                <p class="muted" style="font-size:.88rem;margin-top:4px">Every serious offer gets a reply within 24 hours. Lowballs get a chuckle — then a reply anyway.</p>
+                <div class="offer-fields">
+                  <label class="field">Your email
+                    <input class="input" type="email" id="offer-email" placeholder="you@example.com" required>
+                  </label>
+                  <label class="field">Your offer (USD)
+                    <input class="input" type="number" id="offer-amount" min="1" step="0.01" placeholder="e.g. 500" required>
+                  </label>
+                </div>
+                <div class="tag-row">
+                  <button class="btn btn-primary btn-sm" type="submit">Send Offer</button>
+                  <button class="btn btn-ghost btn-sm" type="button" id="offer-cancel">Never Mind</button>
+                </div>
+              </form>
+              <div class="hidden" id="offer-done">
+                <h3 class="up" style="font-size:1.05rem">Offer Received</h3>
+                <p class="muted" style="margin-top:6px" id="offer-done-text"></p>
+              </div>
+            </div>
+
+            <div id="own-note"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec-tight">
+      <div class="wrap">
+        <h2>12-Month Price History</h2>
+        <div class="panel mt-3" id="chart-box"></div>
+        <div class="stat-bar hist-stats mt-2">
+          <div class="stat"><div class="stat-num" id="stat-low"></div><div class="stat-label">12-Mo Low</div></div>
+          <div class="stat"><div class="stat-num" id="stat-high"></div><div class="stat-label">12-Mo High</div></div>
+          <div class="stat"><div class="stat-num" id="stat-trend"></div><div class="stat-label">30-Day Trend</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec-tight">
+      <div class="wrap">
+        <h2>Recent Comps</h2>
+        <p class="muted" style="font-size:.9rem;margin-top:6px">Latest recorded sales for this card in this grade — the numbers behind the price tag.</p>
+        <div class="table-wrap mt-3">
+          <table class="data">
+            <thead><tr><th>Date</th><th>Source</th><th>Grade</th><th>Sale Price</th></tr></thead>
+            <tbody id="comps-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec-related hidden" id="related-section">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="related-title">More From The Vault</h2>
+          <a id="related-link" href="shop.html">View all →</a>
+        </div>
+        <div class="grid grid-4" id="related-grid"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <section id="not-found" class="hidden sec-notfound">
+    <div class="wrap" style="max-width:620px">
+      <div class="panel center" style="padding:64px 28px">
+        <span class="kicker">Vault Miss</span>
+        <h2 style="margin:10px 0 8px">Card Not Found</h2>
+        <p class="muted">That slab isn't in the vault — it may have already sold, or the link took a corner ding on the way here.</p>
+        <a class="btn btn-primary mt-3" href="shop.html">Back to the Vault</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:12px">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:30px;height:30px"><defs><linearGradient id="ftrLg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff5a1f"/><stop offset="1" stop-color="#ffc233"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#161b2e" stroke="#232a44" stroke-width="2"/><path d="M34 8 L20 36 L30 36 L26 56 L46 26 L34 26 L42 8 Z" fill="url(#ftrLg)"/></svg>
+          <span class="brand-name" style="font-size:1.15rem">DaBomb <em>Breaks</em></span>
+        </a>
+        <p class="muted" style="font-size:.9rem;max-width:280px">Sports cards, live breaks &amp; collectibles. Rip with us live on Whatnot — 4.8★ rated seller, 459+ orders shipped.</p>
+      </div>
+      <div>
+        <h4>Marketplace</h4>
+        <ul>
+          <li><a href="shop.html">Shop All Cards</a></li>
+          <li><a href="shop.html?sport=Basketball">Basketball</a></li>
+          <li><a href="shop.html?sport=Football">Football</a></li>
+          <li><a href="shop.html?sport=Baseball">Baseball</a></li>
+          <li><a href="shop.html?sport=Pok%C3%A9mon">Pokémon &amp; TCG</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="breaks.html">Live Breaks</a></li>
+          <li><a href="consign.html">Consignment</a></li>
+          <li><a href="ai.html">Card AI Tools</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <ul>
+          <li><a href="https://www.whatnot.com/user/dabomb_breaks" target="_blank" rel="noopener">Whatnot ↗</a></li>
+          <li><a href="about.html#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-note">
+      <span>© <span data-year>2026</span> DaBomb Breaks. All rights reserved.</span>
+      <span>Demo site — sample market data, plus live listings pulled from our Whatnot shop.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/inventory-data.js"></script>
+<script src="js/app.js"></script>
+<script>
+/* Card detail page — reads ?id=, renders from INVENTORY. Safe when data is absent. */
+(function () {
+  var id = getParam("id");
+  var card = findCard(id || "");
+  var detailEl = document.getElementById("detail-view");
+  var notFoundEl = document.getElementById("not-found");
+
+  /* Graceful fallback: unknown id, missing ?id=, or empty/absent inventory */
+  if (!card) {
+    notFoundEl.classList.remove("hidden");
+    return;
+  }
+  detailEl.classList.remove("hidden");
+
+  if (card.name == null) card.name = "Mystery Card";
+  var name = card.name;
+  var sport = card.sport || "";
+  var yearSet = ((card.year != null ? card.year + " " : "") + (card.set || "")).trim();
+  var lineParts = [];
+  if (yearSet) lineParts.push(yearSet);
+  if (card.parallel) lineParts.push(card.parallel);
+  if (card.cardNumber) lineParts.push(card.cardNumber);
+  var setLine = lineParts.join(" · ");
+
+  /* --- Head: dynamic title, meta description, Product JSON-LD --- */
+  var fullName = [name, card.year, card.set, card.parallel]
+    .filter(function (v) { return v != null && v !== ""; }).join(" ");
+  document.title = fullName + " | DaBomb Breaks";
+  var desc = (card.grade ? card.grade + " " : "") + fullName + " — " + fmtMoney(card.price || 0)
+    + " at DaBomb Breaks. 12-month price history, recent comps, verified grading, fast shipping.";
+  var metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute("content", desc);
+  var ld = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": fullName,
+    "sku": card.id,
+    "description": desc,
+    "brand": card.set || "DaBomb Breaks",
+    "category": (sport ? sport + " " : "") + "Trading Card",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": String(card.price != null ? card.price : 0),
+      "availability": "https://schema.org/InStock",
+      "url": "https://drewbabbitt.github.io/dabomb-breaks/card.html?id=" + encodeURIComponent(card.id),
+      "seller": { "@type": "Organization", "name": "DaBomb Breaks" }
+    }
+  };
+  var ldTag = document.createElement("script");
+  ldTag.type = "application/ld+json";
+  ldTag.textContent = JSON.stringify(ld);
+  document.head.appendChild(ldTag);
+
+  /* --- Top panel --- */
+  document.getElementById("crumb-name").textContent = name;
+  var artEl = document.getElementById("c-art");
+  if (card.image) {
+    artEl.innerHTML = '<img class="card-photo" src="' + escHTML(card.imageHd || card.image) + '" alt="' + escHTML(name) + '">'
+      + '<div class="hidden">' + cardArtSVG(card) + '</div>';
+    var photoEl = artEl.querySelector("img");
+    photoEl.addEventListener("error", function () {
+      photoEl.classList.add("hidden");
+      artEl.lastElementChild.classList.remove("hidden");
+    });
+    var artNote = document.getElementById("art-note");
+    if (artNote) artNote.textContent = "Actual listing photo — this card is live in our Whatnot shop right now.";
+  } else {
+    artEl.innerHTML = cardArtSVG(card);
+  }
+  document.getElementById("c-name").textContent = name;
+  document.getElementById("c-setline").textContent = setLine;
+
+  var gradeBadge = (card.grade && card.grade !== "Raw")
+    ? '<span class="badge badge-grade">' + escHTML(card.grade) + '</span>'
+    : '<span class="badge badge-raw">Raw</span>';
+  var statusBadge = (card.status === "consigned")
+    ? '<span class="badge badge-consigned">Consigned</span>'
+    : '<span class="badge badge-owned">In-House</span>';
+  if (card.whatnot) statusBadge = '<span class="badge badge-live">On Whatnot Now</span>';
+  if (card.whatnotUrl) document.getElementById("buy-btn").setAttribute("href", card.whatnotUrl);
+  var sportChip = sport
+    ? '<a class="chip" href="shop.html?sport=' + encodeURIComponent(sport) + '">' + escHTML(sport) + '</a>'
+    : '';
+  document.getElementById("c-badges").innerHTML = gradeBadge + statusBadge + sportChip;
+
+  document.getElementById("c-price").textContent = fmtMoney(card.price || 0);
+  document.getElementById("c-trend").innerHTML = fmtTrend(card.trend || 0);
+  document.getElementById("c-lastcomp").textContent =
+    "Last comp: " + fmtMoney(card.lastComp != null ? card.lastComp : (card.price || 0));
+
+  var noteEl = document.getElementById("own-note");
+  if (card.status === "consigned") {
+    noteEl.className = "note note-purple";
+    noteEl.innerHTML = "<strong>Consigned item</strong> — held &amp; sold on behalf of consignor "
+      + escHTML(card.consignor || "on record") + ". Ownership transfers at sale.";
+  } else if (card.whatnot) {
+    noteEl.className = "note note-blue";
+    noteEl.innerHTML = "<strong>Live listing</strong> — this exact card is for sale in our Whatnot shop right now. Owned and shipped by DaBomb Breaks, ~2-day average ship.";
+  } else {
+    noteEl.className = "note note-blue";
+    noteEl.innerHTML = "<strong>In-house inventory</strong> — owned and shipped by DaBomb Breaks.";
+  }
+
+  /* --- 12-month price history --- */
+  var hist = (Array.isArray(card.priceHistory) && card.priceHistory.length >= 2)
+    ? card.priceHistory.slice()
+    : [Number(card.price) || 0, Number(card.price) || 0];
+  document.getElementById("chart-box").innerHTML = priceChartSVG(hist);
+  var lo = Math.min.apply(null, hist);
+  var hi = Math.max.apply(null, hist);
+  document.getElementById("stat-low").textContent = fmtMoney(lo);
+  document.getElementById("stat-high").textContent = fmtMoney(hi);
+  var t = Number(card.trend) || 0;
+  var trendStat = document.getElementById("stat-trend");
+  trendStat.textContent = (t >= 0 ? "▲ " : "▼ ") + Math.abs(t).toFixed(1) + "%";
+  trendStat.classList.add(t >= 0 ? "up" : "down");
+
+  /* --- Recent comps: 5 plausible rows derived from the tail of priceHistory --- */
+  var srcNames = ["eBay sale", "Whatnot live", "Marketplace sale", "eBay sale", "Whatnot live"];
+  var dayBack = [5, 16, 29, 44, 62];
+  var wiggle = [1.014, 0.982, 1.027, 0.965, 1.008];
+  var vals = hist.slice(-5);
+  while (vals.length < 5) { vals.unshift(vals[0]); }
+  var rowsHTML = "";
+  for (var i = 0; i < 5; i++) {
+    var when = new Date();
+    when.setDate(when.getDate() - dayBack[i]);
+    var dateStr = when.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    var salePrice = Math.round((Number(vals[vals.length - 1 - i]) || 0) * wiggle[i]);
+    rowsHTML += "<tr><td>" + escHTML(dateStr) + "</td><td>" + srcNames[i] + "</td><td>"
+      + escHTML(card.grade || "Raw") + "</td><td><strong>" + fmtMoney(salePrice) + "</strong></td></tr>";
+  }
+  document.getElementById("comps-body").innerHTML = rowsHTML;
+
+  /* --- Related: up to 4 more from the same sport --- */
+  var related = getInventory().filter(function (c) {
+    return c && c.sport === card.sport && c.id !== card.id;
+  }).slice(0, 4);
+  if (related.length) {
+    document.getElementById("related-title").textContent = "More " + (sport || "From The Vault");
+    var rl = document.getElementById("related-link");
+    rl.setAttribute("href", "shop.html?sport=" + encodeURIComponent(sport));
+    rl.textContent = "View all " + (sport || "cards") + " →";
+    document.getElementById("related-grid").innerHTML =
+      related.map(function (c) { return cardTileHTML(c); }).join("");
+    document.getElementById("related-section").classList.remove("hidden");
+  }
+
+  /* --- Make an Offer (mock, no backend) --- */
+  var offerBtn = document.getElementById("offer-btn");
+  var offerBox = document.getElementById("offer-box");
+  var offerForm = document.getElementById("offer-form");
+  var offerDone = document.getElementById("offer-done");
+  var offerEmail = document.getElementById("offer-email");
+  var offerAmount = document.getElementById("offer-amount");
+  offerAmount.setAttribute("placeholder", "e.g. " + Math.max(1, Math.round((card.price || 100) * 0.9)));
+  offerBtn.addEventListener("click", function () {
+    offerBox.classList.remove("hidden");
+    offerBtn.classList.add("hidden");
+    offerEmail.focus();
+  });
+  document.getElementById("offer-cancel").addEventListener("click", function () {
+    offerBox.classList.add("hidden");
+    offerBtn.classList.remove("hidden");
+  });
+  offerForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var email = offerEmail.value.trim();
+    var amt = parseFloat(offerAmount.value);
+    if (!email || !(amt > 0)) { return; }
+    offerForm.classList.add("hidden");
+    offerDone.classList.remove("hidden");
+    document.getElementById("offer-done-text").innerHTML =
+      "Your <strong>" + fmtMoney(amt) + "</strong> offer on " + escHTML(name)
+      + " is in the queue. We'll hit <strong>" + escHTML(email) + "</strong> within 24 hours — watch your inbox.";
+  });
+})();
+</script>
+</body>
+</html>

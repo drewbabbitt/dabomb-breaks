@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://drewbabbitt.github.io/dabomb-breaks/sitemap.xml
