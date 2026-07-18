@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<title>Da Bomb Breaks — Live Board</title>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: #060607; overflow: hidden;
+    -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none;
+    touch-action: manipulation; overscroll-behavior: none; position: fixed; inset: 0; width: 100%; }
+  /* Safari iPad: 100vh includes the URL-bar zone and clips the bottom — dvh tracks the real visible area */
+  .pm-app { height: 100vh; height: 100dvh; }
+  a { color: #c4c9cc; text-decoration: none; }
+  input { font-family: inherit; }
+  img { -webkit-user-drag: none; }
+  @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes rise { 0% { transform: translateY(30px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+  @keyframes logoPop { 0% { transform: scale(0) rotate(-25deg); opacity: 0; } 55% { transform: scale(1.15) rotate(5deg); opacity: 1; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
+  @keyframes confettiFall { 0% { transform: translateY(-20vh) rotate(0); opacity: 1; } 100% { transform: translateY(120vh) rotate(720deg); opacity: 1; } }
+  @keyframes fwShoot { 0% { transform: rotate(var(--a)) translateY(0) scale(1); opacity: 0; }
+    8% { opacity: 1; } 75% { opacity: .9; }
+    100% { transform: rotate(var(--a)) translateY(var(--d)) scale(.35); opacity: 0; } }
+</style>
+</helmet>
+
+<div class="pm-app" style="display: flex; flex-direction: column; color: #eef0f2;
+  font-family: 'Oswald', sans-serif; overflow: hidden; position: relative;
+  background: url('./photos/stands.jpg') center 30% / cover no-repeat #060607;">
+
+  <!-- purple studio dimmer -->
+  <div style="position: absolute; inset: 0; background:
+    linear-gradient(180deg, rgba(5,5,6,.95) 0%, rgba(6,6,8,.93) 45%, rgba(4,4,5,.96) 100%);"></div>
+
+  <!-- ===== DA BOMB BREAKS HEADER (always on top) ===== -->
+  <div style="flex: 0 0 auto; height: 64px; display: flex; align-items: center; gap: 12px; padding: 0 14px;
+    position: relative; z-index: 70; background: #000; border-bottom: 3px solid #c4c9cc; box-shadow: 0 8px 26px rgba(0,0,0,.85);">
+    <img src="../assets/logo.svg" alt="Da Bomb Breaks" style="height: 42px; width: auto;" />
+    <div style="display: flex; flex-direction: column; line-height: 1; gap: 3px;">
+      <span style="font-family: 'Anton'; font-size: 24px; letter-spacing: 2px; color: #e9edef;
+        text-shadow: 0 1px 0 #55595c, 0 2px 6px rgba(0,0,0,.8);">DA BOMB <span style="color: #8a9096;">BREAKS</span></span>
+      <span style="font-family: 'Oswald'; font-weight: 500; font-size: 10px; letter-spacing: 5px; color: #8a9096;">LIVE BREAK BOARD</span>
+    </div>
+    <div style="flex: 1 1 auto;"></div>
+    <a href="https://www.whatnot.com/user/dabomb_breaks" target="_blank" rel="noopener"
+      style="display: inline-flex; align-items: center; height: 40px; padding: 0 14px; border: 2px solid #fff;
+      border-radius: 9px; font-family: 'Anton'; font-size: 13px; letter-spacing: 1px; color: #000;
+      background: linear-gradient(90deg,#c4c9cc,#e9edef); text-decoration: none;">WHATNOT ▸</a>
+    <a href="https://drewb-it.com/dabomb-breaks/" target="_blank" rel="noopener"
+      style="display: inline-flex; align-items: center; height: 40px; padding: 0 12px; border: 2px solid #c4c9cc;
+      border-radius: 9px; font-family: 'Anton'; font-size: 12px; letter-spacing: 1px; color: #e9edef;
+      background: rgba(20,21,23,.9); text-decoration: none;">DABOMB SITE ▸</a>
+  </div>
+
+  <!-- ===== UNIFIED TASKBAR (no-wrap, self-compressing) ===== -->
+  <div style="flex: 0 0 auto; display: flex; flex-wrap: nowrap; align-items: center; gap: 6px; padding: 6px 10px;
+    position: relative; z-index: 5; border-bottom: 1px solid rgba(165,172,175,.35);">
+    <button onClick="{{ armSP }}" style="cursor: pointer; flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden;
+      border: 2px solid {{ spBorder }}; color: {{ spColor }};
+      font-family: 'Anton'; font-size: 12px; padding: 11px 2px; border-radius: 9px;
+      background: {{ spBg }}; transition: filter .15s ease;" style-hover="filter: brightness(1.12);">
+      STASH·PASS
+    </button>
+    <button onClick="{{ armSee2 }}" style="cursor: pointer; flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden;
+      border: 2px solid {{ see2Border }}; color: {{ see2Color }};
+      font-family: 'Anton'; font-size: 12px; padding: 11px 2px; border-radius: 9px;
+      background: {{ see2Bg }}; transition: filter .15s ease;" style-hover="filter: brightness(1.12);">
+      SEE 2·PICK 1
+    </button>
+    <button onClick="{{ armSee3 }}" style="cursor: pointer; flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden;
+      border: 2px solid {{ see3Border }}; color: {{ see3Color }};
+      font-family: 'Anton'; font-size: 12px; padding: 11px 2px; border-radius: 9px;
+      background: {{ see3Bg }}; transition: filter .15s ease;" style-hover="filter: brightness(1.12);">
+      SEE 3·PICK 1
+    </button>
+    <button onClick="{{ armHB }}" style="cursor: pointer; flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden;
+      border: 2px solid {{ hbBorder }}; color: {{ hbColor }};
+      font-family: 'Anton'; font-size: 12px; padding: 11px 2px; border-radius: 9px;
+      background: {{ hbBg }}; transition: filter .15s ease;" style-hover="filter: brightness(1.12);">
+      HIGH BID
+    </button>
+
+    <!-- board count -->
+    <div style="flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 2px;">
+      <span style="font-family: 'Anton'; font-size: 14px; line-height: 1; color: #fff; background: #0c0d0e;
+        padding: 5px 7px; border-radius: 7px; border: 2px solid #c4c9cc; white-space: nowrap;">{{ remaining }}/30</span>
+      <div style="height: 4px; width: 52px; border-radius: 3px; background: #0c0d0e; overflow: hidden; border: 1px solid rgba(165,172,175,.4);">
+        <div style="height: 100%; width: {{ pct }}%; background: linear-gradient(90deg,#3a3f44,#c4c9cc); transition: width .5s ease;"></div>
+      </div>
+    </div>
+
+    <!-- running total -->
+    <div style="flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 2px;">
+      <span style="font-family: 'Anton'; font-size: 14px; line-height: 1; color: #c4c9cc; background: #0c0d0e;
+        padding: 5px 7px; border-radius: 7px; border: 2px solid #c4c9cc; white-space: nowrap;">{{ totalText }}</span>
+      <span style="font-family: 'Anton'; font-size: 7px; letter-spacing: 2px; color: #b9bfc3;">TOTAL</span>
+    </div>
+
+    <button onClick="{{ openGivvy }}" style="cursor: pointer; border: 2px solid #c4c9cc; background: rgba(196,201,204,.12);
+      color: #c4c9cc; font-family: 'Anton'; font-size: 11px; padding: 0 8px; height: 42px; white-space: nowrap;
+      border-radius: 9px; flex: 0 0 auto;" style-hover="background: rgba(196,201,204,.25);">GIVVY</button>
+    <button onClick="{{ openRips }}" style="cursor: pointer; border: 1px solid rgba(165,172,175,.5); background: rgba(20,21,23,.85);
+      color: #eef0f2; font-family: 'Anton'; font-size: 11px; padding: 0 8px; height: 42px; white-space: nowrap;
+      border-radius: 9px; flex: 0 0 auto;">WINS {{ winCount }}</button>
+    <button onClick="{{ toggleSound }}" style="cursor: pointer; border: 1px solid rgba(165,172,175,.5); background: rgba(20,21,23,.85);
+      color: #eef0f2; font-size: 15px; width: 38px; height: 42px; border-radius: 9px; display: flex;
+      align-items: center; justify-content: center; flex: 0 0 auto;">{{ soundIcon }}</button>
+    <button onClick="{{ resetBoard }}" style="cursor: pointer; border: 1px solid rgba(165,172,175,.5); background: rgba(20,21,23,.85);
+      color: #b9bfc3; font-family: 'Oswald'; font-weight: 600; font-size: 10px; letter-spacing: .5px;
+      padding: 0 7px; height: 42px; border-radius: 9px; flex: 0 0 auto;"
+      style-hover="border-color:#c4c9cc; color:#c4c9cc;">RESET</button>
+  </div>
+
+  <!-- mode instruction strip -->
+  <sc-if value="{{ hasInstruction }}" hint-placeholder-val="{{ false }}">
+    <div style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 8px 12px; position: relative; z-index: 5; background: rgba(90,96,100,.28);
+      border-bottom: 1px solid rgba(165,172,175,.4);">
+      <span style="font-family: 'Anton'; font-size: 14px; letter-spacing: 1px; color: #c4c9cc;">{{ instruction }}</span>
+      <sc-for list="{{ queueTeams }}" as="q" hint-placeholder-count="0">
+        <span style="width: 30px; height: 30px; border-radius: 50%; background: #fff; display: inline-flex;
+          align-items: center; justify-content: center; padding: 3px; border: 2px solid #c4c9cc;">
+          <img src="{{ q.logo }}" alt="{{ q.name }}" style="width: 100%; height: 100%; object-fit: contain;" /></span>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <!-- ===== TICKER ===== -->
+  <div style="height: 32px; flex: 0 0 auto; display: flex; align-items: center; position: relative; z-index: 5;
+    background: #0b0c0d; border-bottom: 2px solid #c4c9cc; overflow: hidden;">
+    <div style="flex: 0 0 auto; height: 100%; display: flex; align-items: center; gap: 7px;
+      padding: 0 14px; background: #c4c9cc; color: #0b0b0c; font-family: 'Anton'; letter-spacing: .5px;
+      font-size: 13px; z-index: 2;">
+      <span style="width: 8px; height: 8px; border-radius: 50%; background: #b5232d;"></span>
+      LIVE
+    </div>
+    <div style="flex: 1 1 auto; overflow: hidden;">
+      <div style="display: inline-flex; white-space: nowrap; animation: tickerScroll 48s linear infinite; will-change: transform;">
+        <sc-for list="{{ tickerLoop }}" as="ti" hint-placeholder-count="8">
+          <span style="display: inline-flex; align-items: center; font-family: 'Anton';
+            font-size: 14px; letter-spacing: 1px; padding: 0 22px; color: {{ ti.color }};">
+            <span style="opacity: .6; color: #8a9096; margin-right: 22px;">◆</span>{{ ti.text }}
+          </span>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TEAM GRID (all 30 visible, big card logos, no names) ===== -->
+  <div style="flex: 1 1 auto; min-height: 0; position: relative; z-index: 5; padding: 8px 12px 10px; display: flex; flex-direction: column;">
+    <div style="flex: 1 1 auto; min-height: 0; overflow: hidden; background: rgba(16,17,19,.88);
+      border: 2px solid rgba(165,172,175,.45); border-radius: 14px; padding: 8px 10px;
+      display: flex; flex-direction: column; gap: 6px; box-shadow: 0 0 24px rgba(90,96,100,.25);">
+      <sc-for list="{{ divisions }}" as="dv" hint-placeholder-count="6">
+        <div style="flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; gap: 3px;">
+          <div style="flex: 0 0 auto; display: flex; align-items: center; gap: 8px; line-height: 1;">
+            <span style="font-family: 'Anton'; font-size: 11px; letter-spacing: 3px; color: {{ dv.color }};">{{ dv.label }}</span>
+            <span style="flex: 1; height: 1px; background: linear-gradient(90deg, {{ dv.color }}, transparent);"></span>
+          </div>
+          <div style="flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: 1fr; gap: 8px;">
+            <sc-for list="{{ dv.teams }}" as="t" hint-placeholder-count="5">
+              <div onClick="{{ t.select }}" style="position: relative; cursor: pointer; border-radius: 12px; min-height: 0;
+                overflow: hidden; background: #fff; border: 4px solid {{ t.border }};
+                box-shadow: 0 4px 12px rgba(0,0,0,.55); display: flex; align-items: center;
+                justify-content: center; padding: 5px; transition: transform .12s ease;"
+                style-hover="transform: translateY(-2px);">
+                <img src="{{ t.logo }}" alt="{{ t.name }}" style="width: 100%; height: 100%; object-fit: contain;" />
+
+                <sc-if value="{{ t.hasBid }}" hint-placeholder-val="{{ false }}">
+                  <div style="position: absolute; left: 0; right: 0; bottom: 0; background: #c4c9cc; color: #0b0b0c;
+                    font-family: 'Anton'; font-size: 16px; letter-spacing: 1px; text-align: center; padding: 2px 0;
+                    z-index: 2; border-top: 2px solid #0b0b0c;">BID {{ t.bidText }}</div>
+                </sc-if>
+
+                <sc-if value="{{ t.isWon }}" hint-placeholder-val="{{ false }}">
+                  <div style="position: absolute; inset: 0; background: rgba(10,11,12,.87);
+                    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; z-index: 3;">
+                    <div style="font-family: 'Anton'; font-size: 16px; color: #c4c9cc; border: 2px solid #c4c9cc;
+                      border-radius: 4px; padding: 1px 8px; transform: rotate(-8deg); letter-spacing: 2px;">WON</div>
+                    <div style="font-family: 'Oswald'; font-weight: 600; font-size: 10px; color: #b9bfc3;
+                      text-align: center; max-width: 92%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ t.winner }}</div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ===== GIVVY POPOVER ===== -->
+  <sc-if value="{{ hasGivvyOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeGivvy }}" style="position: fixed; left: 0; right: 0; bottom: 0; top: 67px;
+      z-index: 44; background: rgba(5,5,6,.8); display: flex; align-items: center; justify-content: center; padding: 16px;">
+      <div onClick="{{ eatClick }}" style="width: min(440px, 92vw); border-radius: 16px; border: 3px solid #c4c9cc;
+        background: #101113; box-shadow: 0 24px 70px rgba(0,0,0,.8); padding: 16px 18px;
+        display: flex; flex-direction: column; gap: 10px; animation: rise .3s ease;">
+        <div style="font-family: 'Anton'; font-size: 18px; letter-spacing: 1px; color: #c4c9cc;">🎁 GIVVY DROP</div>
+        <div style="display: flex; gap: 5px; background: #0c0d0e; border: 1px solid rgba(165,172,175,.4); border-radius: 10px; padding: 4px;">
+          <button onClick="{{ setBuyersMode }}" style="cursor: pointer; flex: 1; border: none; border-radius: 8px; padding: 9px 6px;
+            font-family: 'Anton'; font-size: 12px; color: {{ buyersTabColor }}; background: {{ buyersTabBg }};">BUYERS · {{ buyersCount }}</button>
+          <button onClick="{{ setFollowersMode }}" style="cursor: pointer; flex: 1; border: none; border-radius: 8px; padding: 9px 6px;
+            font-family: 'Anton'; font-size: 12px; color: {{ followersTabColor }}; background: {{ followersTabBg }};">FOLLOWERS</button>
+        </div>
+        <sc-if value="{{ isBuyersMode }}" hint-placeholder-val="{{ true }}">
+          <div style="font-family: 'Oswald'; font-weight: 500; font-size: 12px; color: #8a9096; text-align: center;">
+            auto-drawn from everyone who won a team this break</div>
+        </sc-if>
+        <sc-if value="{{ isFollowersMode }}" hint-placeholder-val="{{ false }}">
+          <textarea value="{{ givvyNames }}" onChange="{{ setGivvy }}" placeholder="paste @followers — one per line"
+            style="resize: none; height: 64px; background: #0c0d0e; border: 1px solid rgba(165,172,175,.4); border-radius: 10px;
+            color: #eef0f2; font-family: 'Oswald'; font-size: 13px; padding: 8px 10px; outline: none;"></textarea>
+        </sc-if>
+        <div style="min-height: 46px; border-radius: 10px; background: #0c0d0e; border: 2px dashed rgba(196,201,204,.55);
+          display: flex; align-items: center; justify-content: center; text-align: center; padding: 6px;
+          font-family: 'Anton'; font-size: 18px; color: {{ givvyColor }}; letter-spacing: 1px;">{{ givvyDisplayText }}</div>
+        <button onClick="{{ spinGivvy }}" style="cursor: pointer; border: 2px solid #c4c9cc; border-radius: 10px; padding: 11px;
+          font-family: 'Anton'; font-size: 15px; letter-spacing: 1px; color: #0b0b0c;
+          background: linear-gradient(90deg,#c4c9cc,#e9edef); transition: filter .15s ease;"
+          style-hover="filter: brightness(1.08);">{{ spinLabel }}</button>
+        <button onClick="{{ closeGivvy }}" style="cursor: pointer; border: none; background: transparent; color: #6d7378;
+          font-family: 'Oswald'; font-weight: 600; font-size: 12px; letter-spacing: 1px; padding: 4px;">CLOSE</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===== RECENT RIPS POPOVER ===== -->
+  <sc-if value="{{ hasRipsOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeRips }}" style="position: fixed; left: 0; right: 0; bottom: 0; top: 67px;
+      z-index: 44; background: rgba(5,5,6,.8); display: flex; align-items: center; justify-content: center; padding: 16px;">
+      <div onClick="{{ eatClick }}" style="width: min(440px, 92vw); max-height: 70vh; border-radius: 16px; border: 3px solid #8a9096;
+        background: #101113; box-shadow: 0 24px 70px rgba(0,0,0,.8); padding: 16px 18px;
+        display: flex; flex-direction: column; gap: 10px; animation: rise .3s ease;">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <span style="font-family: 'Anton'; font-size: 18px; letter-spacing: 1px; color: #c4c9cc;">◆ RECENT RIPS</span>
+          <span style="font-family: 'Anton'; font-size: 14px; color: #b9bfc3;">{{ winCount }}</span>
+        </div>
+        <div style="flex: 1 1 auto; min-height: 60px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px;">
+          <sc-if value="{{ noWins }}" hint-placeholder-val="{{ true }}">
+            <div style="color: #6d7378; font-family: 'Oswald'; font-size: 13px; text-align: center; padding: 16px 0;">no winners yet — let's chase hits!</div>
+          </sc-if>
+          <sc-for list="{{ wins }}" as="w" hint-placeholder-count="0">
+            <div style="display: flex; align-items: center; gap: 9px; background: rgba(12,13,14,.9); border: 1px solid rgba(165,172,175,.35);
+              border-radius: 8px; padding: 6px 9px;">
+              <div style="width: 30px; height: 30px; border-radius: 6px; flex: 0 0 auto; display: flex;
+                align-items: center; justify-content: center; background: #fff; padding: 3px;
+                border: 2px solid {{ w.color }};">
+                <img src="{{ w.logo }}" alt="{{ w.team }}" style="width: 100%; height: 100%; object-fit: contain;" /></div>
+              <div style="min-width: 0; display: flex; align-items: baseline; gap: 8px; overflow: hidden; flex: 1 1 auto;">
+                <span style="font-family: 'Oswald'; font-weight: 700; font-size: 14px; color: #fff; white-space: nowrap;">{{ w.winner }}</span>
+                <span style="font-family: 'Barlow Condensed'; font-weight: 600; font-size: 12px; color: #b9bfc3;
+                  text-transform: uppercase; white-space: nowrap;">{{ w.team }}</span>
+              </div>
+              <sc-if value="{{ w.hasPrice }}" hint-placeholder-val="{{ false }}">
+                <span style="font-family: 'Anton'; font-size: 13px; color: #c4c9cc; background: #0c0d0e; padding: 2px 8px;
+                  border-radius: 6px; border: 1px solid rgba(196,201,204,.5); flex: 0 0 auto;">{{ w.priceText }}</span>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <button onClick="{{ closeRips }}" style="cursor: pointer; border: none; background: transparent; color: #6d7378;
+          font-family: 'Oswald'; font-weight: 600; font-size: 12px; letter-spacing: 1px; padding: 4px;">CLOSE</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===== TEAM POPUP (big logo + top 3 chases, all flows — sits below the banner) ===== -->
+  <sc-if value="{{ detailTeam }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; left: 0; right: 0; bottom: 0; top: 67px; z-index: 45;
+      background: rgba(5,5,6,.85); display: flex; align-items: center; justify-content: center; padding: 12px;">
+      <div style="width: min(560px, 94vw); max-height: 100%; overflow-y: auto; border-radius: 18px; border: 3px solid #c4c9cc;
+        background: #101113; box-shadow: 0 24px 70px rgba(0,0,0,.8), 0 0 40px rgba(90,96,100,.4); animation: rise .3s ease;">
+        <div style="padding: 16px 18px 14px; display: flex; flex-direction: column; align-items: center; gap: 8px;
+          background: {{ detailTeam.color }}; border-radius: 15px 15px 0 0;">
+          <div style="width: 180px; height: 180px; border-radius: 50%; background: #fff; display: flex;
+            align-items: center; justify-content: center; padding: 20px; border: 3px solid rgba(0,0,0,.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,.45);">
+            <img src="{{ detailTeam.logo }}" alt="{{ detailTeam.name }}" style="width: 100%; height: 100%; object-fit: contain;" /></div>
+          <div style="font-family: 'Anton'; font-size: 28px; color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,.6);
+            letter-spacing: 1px; text-align: center; line-height: 1;">{{ detailTeam.city }} {{ detailTeam.name }}</div>
+          <div style="font-family: 'Oswald'; font-weight: 500; font-style: italic; font-size: 13px; color: rgba(255,255,255,.92);">{{ detailKicker }}</div>
+        </div>
+        <div style="padding: 12px 16px 14px; display: flex; flex-direction: column; gap: 9px;">
+          <div style="font-family: 'Anton'; font-size: 11px; letter-spacing: 3px; color: #c4c9cc; text-align: center;">TOP CHASES THIS YEAR</div>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <sc-for list="{{ detailPlayers }}" as="pl" hint-placeholder-count="3">
+              <div style="background: #0c0d0e; border: 1px solid rgba(165,172,175,.45); border-radius: 9px; padding: 9px 12px;
+                font-family: 'Oswald'; font-weight: 600; font-size: 16px; color: #eef0f2; text-align: center;">{{ pl }}</div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ detailIsPlain }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ detailWin }}" style="cursor: pointer; border: 2px solid #fff; font-family: 'Anton'; font-size: 19px;
+              letter-spacing: 1px; color: #0b0b0c; background: linear-gradient(90deg,#c4c9cc,#e9edef); padding: 15px; border-radius: 10px;
+              transition: filter .15s ease;" style-hover="filter: brightness(1.08);">MARK AS WON</button>
+          </sc-if>
+          <sc-if value="{{ detailIsWon }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ detailUndo }}" style="cursor: pointer; border: 2px solid #b5232d; background: rgba(181,35,45,.15);
+              color: #ff9d9d; font-family: 'Anton'; font-size: 16px; padding: 14px; border-radius: 10px;">PUT BACK ON BOARD</button>
+          </sc-if>
+          <sc-if value="{{ detailIsSP1 }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; gap: 10px;">
+              <button onClick="{{ detailStash }}" style="cursor: pointer; flex: 1; border: 2px solid #fff; font-family: 'Anton'; font-size: 19px;
+                letter-spacing: 1px; color: #0b0b0c; background: linear-gradient(90deg,#c4c9cc,#e9edef); padding: 14px; border-radius: 10px;
+                transition: filter .15s ease;" style-hover="filter: brightness(1.08);">STASH IT</button>
+              <button onClick="{{ detailPass }}" style="cursor: pointer; flex: 1; border: 2px solid #8a9096; font-family: 'Anton'; font-size: 19px;
+                letter-spacing: 1px; color: #d9dde0; background: rgba(90,96,100,.35); padding: 14px; border-radius: 10px;
+                transition: filter .15s ease;" style-hover="filter: brightness(1.15);">PASS</button>
+            </div>
+            <div style="font-family: 'Oswald'; font-size: 12px; color: #8a9096; text-align: center;">pass = team goes back on the board · whatnot spins again · next spin is a blind keep</div>
+          </sc-if>
+          <sc-if value="{{ detailIsSP2 }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ detailLock }}" style="cursor: pointer; border: 2px solid #fff; font-family: 'Anton'; font-size: 19px;
+              letter-spacing: 1px; color: #0b0b0c; background: linear-gradient(90deg,#c4c9cc,#e9edef); padding: 14px; border-radius: 10px;
+              transition: filter .15s ease;" style-hover="filter: brightness(1.08);">LOCK IT IN — NO TAKEBACKS</button>
+          </sc-if>
+          <sc-if value="{{ detailIsAuction }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ detailBid }}" style="cursor: pointer; border: 2px solid #fff; font-family: 'Anton'; font-size: 19px;
+              letter-spacing: 1px; color: #fff; background: linear-gradient(90deg,#b5232d,#e04b3a); padding: 15px; border-radius: 10px;
+              transition: filter .15s ease;" style-hover="filter: brightness(1.1);">START LIVE BID</button>
+            <div style="font-family: 'Oswald'; font-size: 12px; color: #8a9096; text-align: center;">bid runs in chat while you rip — the price shows right on the card · tap the card anytime to update</div>
+          </sc-if>
+          <sc-if value="{{ detailIsBid }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; justify-content: center;">
+              <span style="font-family: 'Anton'; font-size: 46px; line-height: 1; color: #c4c9cc; background: #0c0d0e;
+                padding: 8px 24px; border-radius: 12px; border: 2px solid #c4c9cc; letter-spacing: 2px;">{{ detailBidText }}</span>
+            </div>
+            <div style="display: flex; gap: 8px; justify-content: center;">
+              <button onClick="{{ bidM5 }}" style="cursor: pointer; border: 1px solid rgba(255,255,255,.35); background: rgba(12,13,14,.85);
+                color: #ff9d9d; font-family: 'Anton'; font-size: 15px; flex: 1; height: 48px; border-radius: 9px;">−5</button>
+              <button onClick="{{ bidP1 }}" style="cursor: pointer; border: 1px solid #c4c9cc; background: rgba(196,201,204,.15);
+                color: #e9edef; font-family: 'Anton'; font-size: 17px; flex: 1; height: 48px; border-radius: 9px;">+1</button>
+              <button onClick="{{ bidP5 }}" style="cursor: pointer; border: 1px solid #c4c9cc; background: rgba(196,201,204,.15);
+                color: #e9edef; font-family: 'Anton'; font-size: 17px; flex: 1; height: 48px; border-radius: 9px;">+5</button>
+              <button onClick="{{ bidP10 }}" style="cursor: pointer; border: 1px solid #c4c9cc; background: rgba(196,201,204,.15);
+                color: #e9edef; font-family: 'Anton'; font-size: 17px; flex: 1; height: 48px; border-radius: 9px;">+10</button>
+              <button onClick="{{ bidP25 }}" style="cursor: pointer; border: 1px solid #c4c9cc; background: rgba(196,201,204,.15);
+                color: #e9edef; font-family: 'Anton'; font-size: 17px; flex: 1; height: 48px; border-radius: 9px;">+25</button>
+            </div>
+            <button onClick="{{ endLiveBid }}" style="cursor: pointer; border: 2px solid #fff; font-family: 'Anton'; font-size: 19px;
+              letter-spacing: 1px; color: #0b0b0c; background: linear-gradient(90deg,#c4c9cc,#e9edef); padding: 15px; border-radius: 10px;
+              transition: filter .15s ease;" style-hover="filter: brightness(1.08);">SOLD — END THE BID</button>
+            <button onClick="{{ dropLiveBid }}" style="cursor: pointer; border: 2px solid #b5232d; background: rgba(181,35,45,.15);
+              color: #ff9d9d; font-family: 'Anton'; font-size: 13px; padding: 10px; border-radius: 9px;">CANCEL BID — NO SALE</button>
+          </sc-if>
+          <button onClick="{{ detailCancel }}" style="cursor: pointer; border: none; background: transparent; color: #6d7378;
+            font-family: 'Oswald'; font-weight: 600; font-size: 12px; letter-spacing: 1px; padding: 4px;">CANCEL</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===== SEE 2/3 CHOOSER ===== -->
+  <sc-if value="{{ hasChooser }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; left: 0; right: 0; bottom: 0; top: 67px; z-index: 46;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 20px; background: url('./photos/night.jpg') center / cover no-repeat; padding: 16px;">
+      <div style="position: absolute; inset: 0; background: rgba(6,7,8,.88);"></div>
+      <div style="position: relative; font-family: 'Anton'; font-size: 30px; letter-spacing: 2px; color: #c4c9cc;
+        text-shadow: 0 2px 12px rgba(0,0,0,.8);">BUYER'S CHOICE — PICK ONE</div>
+      <div style="position: relative; display: flex; flex-direction: column; gap: 12px; width: min(560px, 94vw);">
+        <sc-for list="{{ chooserTeams }}" as="p" hint-placeholder-count="2">
+          <div onClick="{{ p.pick }}" style="cursor: pointer; border-radius: 14px; background: {{ p.color }};
+            border: 3px solid #fff; box-shadow: 0 14px 40px rgba(0,0,0,.7); padding: 14px 16px;
+            display: flex; align-items: center; gap: 14px; animation: rise .35s ease backwards; transition: transform .15s ease;"
+            style-hover="transform: scale(1.02);">
+            <div style="width: 62px; height: 62px; border-radius: 50%; background: #fff; display: flex; flex: 0 0 auto;
+              align-items: center; justify-content: center; padding: 8px; border: 2px solid rgba(0,0,0,.2);">
+              <img src="{{ p.logo }}" alt="{{ p.name }}" style="width: 100%; height: 100%; object-fit: contain;" /></div>
+            <div style="min-width: 0;">
+              <div style="font-family: 'Anton'; font-size: 22px; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,.6); letter-spacing: 1px;">{{ p.city }} {{ p.name }}</div>
+              <div style="font-family: 'Oswald'; font-weight: 600; font-size: 13px; color: rgba(255,255,255,.92);">{{ p.playerLine }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <button onClick="{{ chooserCancel }}" style="position: relative; cursor: pointer; border: 1px solid rgba(165,172,175,.6); background: transparent;
+        color: #b9bfc3; font-family: 'Anton'; font-size: 13px; letter-spacing: 2px; padding: 10px 24px; border-radius: 8px;">CANCEL</button>
+    </div>
+  </sc-if>
+
+  <!-- ===== WIN TAKEOVER ===== -->
+  <sc-if value="{{ overlayTeam }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; left: 0; right: 0; bottom: 0; top: 67px; z-index: 60; overflow: hidden;
+      background: url('./photos/aerial-bw.jpg') center 70% / cover no-repeat #060607;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px;">
+      <div style="position: absolute; inset: 0; background: {{ overlayTeam.color }}; opacity: .55; mix-blend-mode: multiply;"></div>
+      <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8,9,10,.4), rgba(8,9,10,.7));"></div>
+
+      <sc-for list="{{ confetti }}" as="c" hint-placeholder-count="0">
+        <span style="position: absolute; top: 0; left: {{ c.left }}; width: 10px; height: 16px; background: {{ c.color }};
+          border-radius: 2px; z-index: 4; animation: confettiFall {{ c.dur }} linear {{ c.delay }} forwards;"></span>
+      </sc-for>
+
+      <!-- team-colored fireworks -->
+      <sc-for list="{{ fireworks }}" as="f" hint-placeholder-count="0">
+        <span style="position: absolute; left: {{ f.left }}; top: {{ f.top }}; width: 7px; height: 7px; border-radius: 50%;
+          background: {{ f.color }}; box-shadow: 0 0 10px {{ f.color }}, 0 0 20px {{ f.color }}; z-index: 4;
+          --a: {{ f.angle }}; --d: {{ f.dist }};
+          animation: fwShoot {{ f.dur }} ease-out {{ f.delay }} infinite;"></span>
+      </sc-for>
+
+      <button onClick="{{ closeOverlay }}" style="position: absolute; top: 12px; right: 16px; z-index: 6; cursor: pointer;
+        border: 1px solid rgba(255,255,255,.4); background: rgba(0,0,0,.45); color: #fff; width: 44px; height: 44px; border-radius: 50%; font-size: 20px;">✕</button>
+
+      <div style="position: relative; z-index: 5; display: flex; flex-direction: column; align-items: center; gap: 6px;">
+        <div style="width: 170px; height: 170px; border-radius: 50%; background: #fff; display: flex; align-items: center;
+          justify-content: center; padding: 24px; box-shadow: 0 20px 60px rgba(0,0,0,.6), 0 0 50px rgba(196,201,204,.4);
+          border: 5px solid #c4c9cc; animation: logoPop .6s cubic-bezier(.2,1.3,.4,1) both;">
+          <img src="{{ overlayTeam.logo }}" alt="{{ overlayTeam.name }}" style="width: 100%; height: 100%; object-fit: contain;" /></div>
+        <div style="font-family: 'Oswald'; font-weight: 600; font-size: 18px; letter-spacing: 4px; color: #c4c9cc; margin-top: 12px;
+          text-shadow: 0 2px 10px rgba(0,0,0,.7); animation: rise .5s ease both;">{{ overlayTeam.city }}</div>
+        <div style="font-family: 'Anton'; font-size: 62px; line-height: .95; color: #fff; text-align: center;
+          text-shadow: 0 4px 30px rgba(0,0,0,.7); animation: rise .5s ease .08s both; letter-spacing: 2px;">{{ overlayTeamUpper }}</div>
+      </div>
+
+      <div style="position: relative; z-index: 5; margin-top: 26px; width: min(540px, 92vw);">
+        <sc-if value="{{ overlayAnnounced }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 14px; animation: rise .5s ease both;">
+            <div style="font-family: 'Anton'; font-size: 24px; text-align: center; color: #fff; background: rgba(8,9,10,.6);
+              padding: 14px 24px; border-radius: 12px; border: 3px solid #c4c9cc; letter-spacing: 1px;">
+              <span style="color: #c4c9cc;">{{ overlayWinner }}</span> {{ overlayWinVerb }} THE {{ overlayTeamUpper }}!
+            </div>
+            <sc-if value="{{ overlayHasPrice }}" hint-placeholder-val="{{ false }}">
+              <div style="font-family: 'Anton'; font-size: 40px; color: #c4c9cc; background: #0c0d0e; padding: 6px 22px;
+                border-radius: 12px; border: 2px solid #c4c9cc; letter-spacing: 2px;">{{ overlayPriceText }}</div>
+            </sc-if>
+            <div style="font-family: 'Oswald'; font-weight: 600; font-size: 12px; letter-spacing: 2px; color: rgba(255,255,255,.75);">LOCKED ON THE BOARD ✓</div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ overlayEntering }}" hint-placeholder-val="{{ true }}">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+            <sc-if value="{{ overlayHasPrice }}" hint-placeholder-val="{{ false }}">
+              <div style="font-family: 'Anton'; font-size: 30px; color: #c4c9cc; background: rgba(8,9,10,.65); padding: 5px 20px;
+                border-radius: 10px; border: 2px solid #c4c9cc; letter-spacing: 2px;">FINAL BID {{ overlayPriceText }}</div>
+            </sc-if>
+            <div style="font-family: 'Anton'; font-size: 14px; letter-spacing: 4px; color: rgba(255,255,255,.92);">{{ overlayPrompt }}</div>
+            <div style="display: flex; gap: 10px; width: 100%;">
+              <input value="{{ overlayWinner }}" onChange="{{ setWinnerName }}" onKeyDown="{{ winnerKey }}"
+                placeholder="enter winner username" autofocus
+                style="flex: 1; background: rgba(8,9,10,.65); border: 2px solid rgba(255,255,255,.6); border-radius: 10px;
+                color: #fff; font-family: 'Anton'; font-size: 18px; padding: 13px 16px; outline: none; text-align: center; letter-spacing: 1px;" />
+              <button onClick="{{ crownWinner }}" style="cursor: pointer; border: 2px solid #fff; font-family: 'Anton'; font-size: 16px;
+                color: #0b0b0c; background: linear-gradient(90deg,#c4c9cc,#e9edef); padding: 0 24px; border-radius: 10px;
+                transition: filter .15s ease;" style-hover="filter: brightness(1.08);">WON</button>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: &quot;834px&quot;, &quot;height&quot;: &quot;1150px&quot;}}">
+class Component extends DCLogic {
+  state = {
+    teams: (function(){
+      const raw = [
+        ['BAL','Orioles','Baltimore','#DF4601','AL EAST'],
+        ['BOS','Red Sox','Boston','#BD3039','AL EAST'],
+        ['NYY','Yankees','New York','#0C2340','AL EAST'],
+        ['TB','Rays','Tampa Bay','#092C5C','AL EAST'],
+        ['TOR','Blue Jays','Toronto','#134A8E','AL EAST'],
+        ['CWS','White Sox','Chicago','#232323','AL CENTRAL'],
+        ['CLE','Guardians','Cleveland','#00385D','AL CENTRAL'],
+        ['DET','Tigers','Detroit','#0C2340','AL CENTRAL'],
+        ['KC','Royals','Kansas City','#004687','AL CENTRAL'],
+        ['MIN','Twins','Minnesota','#002B5C','AL CENTRAL'],
+        ['HOU','Astros','Houston','#002D62','AL WEST'],
+        ['LAA','Angels','Los Angeles','#BA0021','AL WEST'],
+        ['ATH','Athletics','West Sacramento','#0B3D2E','AL WEST'],
+        ['SEA','Mariners','Seattle','#0C2C56','AL WEST'],
+        ['TEX','Rangers','Texas','#003278','AL WEST'],
+        ['ATL','Braves','Atlanta','#CE1141','NL EAST'],
+        ['MIA','Marlins','Miami','#00A3E0','NL EAST'],
+        ['NYM','Mets','New York','#002D72','NL EAST'],
+        ['PHI','Phillies','Philadelphia','#E81828','NL EAST'],
+        ['WSH','Nationals','Washington','#AB0003','NL EAST'],
+        ['CHC','Cubs','Chicago','#0E3386','NL CENTRAL'],
+        ['CIN','Reds','Cincinnati','#C6011F','NL CENTRAL'],
+        ['MIL','Brewers','Milwaukee','#12284B','NL CENTRAL'],
+        ['PIT','Pirates','Pittsburgh','#27251F','NL CENTRAL'],
+        ['STL','Cardinals','St. Louis','#C41E3A','NL CENTRAL'],
+        ['ARI','D-backs','Arizona','#A71930','NL WEST'],
+        ['COL','Rockies','Colorado','#33006F','NL WEST'],
+        ['LAD','Dodgers','Los Angeles','#005A9C','NL WEST'],
+        ['SD','Padres','San Diego','#2F241D','NL WEST'],
+        ['SF','Giants','San Francisco','#FD5A1E','NL WEST'],
+      ];
+      return raw.map(r => ({ id: r[0], abbr: r[0], name: r[1], city: r[2], color: r[3], div: r[4], status: 'available', winner: null }));
+    })(),
+    wins: [],
+    promos: [
+      'DA BOMB BREAKS · LIVE ON WHATNOT',
+      'FOLLOW → WHATNOT.COM/USER/DABOMB_BREAKS',
+      'SHOP & CONSIGN → DREWB-IT.COM/DABOMB-BREAKS',
+      "BOOM — LET'S CHASE HITS",
+      'WANT A BOARD LIKE THIS? → DREWB-IT.COM',
+    ],
+    soundOn: true,
+    action: null,
+    overlay: null,
+    mode: null,          // 'sp' | 'see2' | 'see3'
+    spStage: null,       // 'first' | 'second'
+    spFirstId: null,
+    queue: [],
+    detail: null,        // { teamId, kind: 'sp1' | 'sp2' }
+    chooser: null,       // [teamIds]
+    saleFocus: null,
+    givvyNames: '',
+    givvyDisplay: null,
+    givvyMode: 'buyers',
+    givvyOpen: false,
+    ripsOpen: false,
+    liveBids: {},   // { teamId: price } — running chat bids shown on the cards
+  };
+
+  logoUrl(abbr) { return './logos/' + abbr + '.svg'; }
+
+  secondary(abbr) {
+    const S = {
+      BAL:'#000000', BOS:'#0C2340', NYY:'#C4CED3', TB:'#8FBCE6', TOR:'#E8291C',
+      CWS:'#C4CED4', CLE:'#E31937', DET:'#FA4616', KC:'#BD9B60', MIN:'#D31145',
+      HOU:'#EB6E1F', LAA:'#003263', ATH:'#EFB21E', SEA:'#005C5C', TEX:'#C0111F',
+      ATL:'#13274F', MIA:'#EF3340', NYM:'#FF5910', PHI:'#002D72', WSH:'#14225A',
+      CHC:'#CC3433', CIN:'#000000', MIL:'#FFC52F', PIT:'#FDB827', STL:'#0C2340',
+      ARI:'#E3D4AD', COL:'#C4CED4', LAD:'#EF3E42', SD:'#FFC425', SF:'#000000',
+    };
+    return S[abbr] || '#ffffff';
+  }
+
+  players(abbr) {
+    const P = {
+      BAL: ['Gunnar Henderson','Jackson Holliday','Adley Rutschman','Samuel Basallo'],
+      BOS: ['Roman Anthony','Kristian Campbell','Marcelo Mayer','Garrett Crochet'],
+      NYY: ['Aaron Judge','Jasson Domínguez','Ben Rice','Spencer Jones'],
+      TB:  ['Junior Caminero','Carson Williams','Shane McClanahan','Yandy Díaz'],
+      TOR: ['Vladimir Guerrero Jr.','Bo Bichette','George Springer','Arjun Nimmala'],
+      CWS: ['Colson Montgomery','Kyle Teel','Luis Robert Jr.','Noah Schultz'],
+      CLE: ['José Ramírez','Steven Kwan','Travis Bazzana','Chase DeLauter'],
+      DET: ['Tarik Skubal','Riley Greene','Jackson Jobe','Max Clark'],
+      KC:  ['Bobby Witt Jr.','Jac Caglianone','Vinnie Pasquantino','Salvador Perez'],
+      MIN: ['Byron Buxton','Royce Lewis','Walker Jenkins','Emmanuel Rodríguez'],
+      HOU: ['Jose Altuve','Yordan Alvarez','Hunter Brown','Cam Smith'],
+      LAA: ['Mike Trout','Zach Neto','Christian Moore','Logan O\'Hoppe'],
+      ATH: ['Jacob Wilson','Nick Kurtz','Lawrence Butler','Tyler Soderstrom'],
+      SEA: ['Julio Rodríguez','Cal Raleigh','Randy Arozarena','Colt Emerson'],
+      TEX: ['Wyatt Langford','Corey Seager','Evan Carter','Sebastian Walcott'],
+      ATL: ['Ronald Acuña Jr.','Michael Harris II','Chris Sale','Spencer Strider'],
+      MIA: ['Sandy Alcantara','Kyle Stowers','Eury Pérez','Agustín Ramírez'],
+      NYM: ['Juan Soto','Francisco Lindor','Pete Alonso','Jett Williams'],
+      PHI: ['Bryce Harper','Trea Turner','Andrew Painter','Zack Wheeler'],
+      WSH: ['James Wood','Dylan Crews','CJ Abrams','MacKenzie Gore'],
+      CHC: ['Pete Crow-Armstrong','Matt Shaw','Seiya Suzuki','Cade Horton'],
+      CIN: ['Elly De La Cruz','Hunter Greene','Chase Burns','Cam Collier'],
+      MIL: ['Jackson Chourio','Jacob Misiorowski','William Contreras','Jesús Made'],
+      PIT: ['Paul Skenes','Oneil Cruz','Bubba Chandler','Konnor Griffin'],
+      STL: ['Masyn Winn','JJ Wetherholt','Iván Herrera','Brendan Donovan'],
+      ARI: ['Corbin Carroll','Ketel Marte','Jordan Lawlar','Gabriel Moreno'],
+      COL: ['Ezequiel Tovar','Hunter Goodman','Charlie Condon','Chase Dollander'],
+      LAD: ['Shohei Ohtani','Mookie Betts','Yoshinobu Yamamoto','Roki Sasaki'],
+      SD:  ['Fernando Tatis Jr.','Jackson Merrill','Manny Machado','Leo De Vries'],
+      SF:  ['Rafael Devers','Logan Webb','Bryce Eldridge','Matt Chapman'],
+    };
+    return P[abbr] || [];
+  }
+
+  // ---------- persistence ----------
+  persist() {
+    try {
+      const s = this.state;
+      localStorage.setItem('daBombBoard', JSON.stringify({
+        teams: s.teams.map(t => ({ id: t.id, status: t.status, winner: t.winner })),
+        wins: s.wins.map(w => ({ id: w.id, abbr: w.abbr, color: w.color, team: w.team, winner: w.winner, price: w.price || 0 })),
+        liveBids: s.liveBids,
+      }));
+    } catch (e) {}
+  }
+  clearPersist() { try { localStorage.removeItem('daBombBoard'); } catch (e) {} }
+  componentDidMount() {
+    try {
+      const raw = localStorage.getItem('daBombBoard');
+      if (!raw) return;
+      const d = JSON.parse(raw);
+      this.setState(s => ({
+        teams: s.teams.map(t => {
+          const m = (d.teams || []).find(x => x.id === t.id);
+          if (!m) return t;
+          const st = m.status === 'stashed' ? 'available' : m.status;
+          return { ...t, status: st, winner: m.winner };
+        }),
+        wins: d.wins || [],
+        liveBids: d.liveBids || {},
+      }));
+    } catch (e) {}
+  }
+
+  // ---------- audio ----------
+  ensureAudio() {
+    if (!this.actx) { try { this.actx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} }
+    if (this.actx && this.actx.state === 'suspended') this.actx.resume();
+  }
+  tone(freq, start, dur, type, gain) {
+    if (!this.actx) return;
+    const c = this.actx, o = c.createOscillator(), g = c.createGain();
+    o.type = type || 'triangle'; o.frequency.value = freq;
+    o.connect(g); g.connect(c.destination);
+    const t = c.currentTime + start;
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(gain || 0.2, t + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.start(t); o.stop(t + dur + 0.03);
+  }
+  sfx(kind) {
+    if (!this.state.soundOn) return;
+    this.ensureAudio(); if (!this.actx) return;
+    if (kind === 'click') this.tone(620, 0, 0.07, 'square', 0.12);
+    else if (kind === 'coin') { [880, 1174, 1568].forEach((f, i) => this.tone(f, i * 0.07, 0.12, 'square', 0.13)); }
+    else if (kind === 'stamp') { this.tone(150, 0, 0.18, 'sine', 0.4); this.tone(90, 0.02, 0.22, 'sine', 0.3); }
+    else if (kind === 'win') {
+      const seq = [523, 659, 784, 1047, 1319];
+      seq.forEach((f, i) => this.tone(f, i * 0.09, 0.28, 'triangle', 0.18));
+      this.tone(784, 0.5, 0.5, 'sawtooth', 0.12); this.tone(1047, 0.5, 0.5, 'triangle', 0.14);
+    }
+  }
+
+  // ---------- mode arming ----------
+  clearMode() { this.setState({ mode: null, spStage: null, spFirstId: null, queue: [], detail: null, chooser: null }); }
+  armMode(m) {
+    this.sfx('click');
+    if (this.state.mode === m) { this.clearMode(); return; }
+    this.setState({ mode: m, spStage: m === 'sp' ? 'first' : null, spFirstId: null, queue: [], detail: null, chooser: null });
+  }
+
+  // ---------- tile taps (everything opens the big team popup) ----------
+  selectTeam(id) {
+    const s = this.state;
+    const t = s.teams.find(x => x.id === id);
+    if (!t) return;
+    this.sfx('click');
+    if (t.status === 'won') { this.setState({ detail: { teamId: id, kind: 'won' } }); return; }
+    if (s.liveBids[id] != null) { this.setState({ detail: { teamId: id, kind: 'bid' } }); return; }
+    if (s.mode === 'sp') {
+      this.setState({ detail: { teamId: id, kind: s.spStage === 'second' ? 'sp2' : 'sp1' } });
+      return;
+    }
+    if (s.mode === 'auction') {
+      this.setState({ detail: { teamId: id, kind: 'auction' } });
+      return;
+    }
+    if (s.mode === 'see2' || s.mode === 'see3') {
+      if (s.queue.indexOf(id) !== -1) return;
+      const need = s.mode === 'see2' ? 2 : 3;
+      const q = [...s.queue, id];
+      if (q.length >= need) this.setState({ queue: q, chooser: q });
+      else this.setState({ queue: q });
+      return;
+    }
+    this.setState({ detail: { teamId: id, kind: 'plain' } });
+  }
+
+  // ---------- team popup actions ----------
+  toOverlay(teamId, auction) {
+    this.sfx('coin');
+    this.setState({ detail: null, overlay: { teamId, winner: '', announced: false, auction: !!auction } });
+  }
+  detailWin() { const d = this.state.detail; if (d) this.toOverlay(d.teamId, false); }
+  detailStash() {
+    const d = this.state.detail; if (!d) return;
+    this.setState({ mode: null, spStage: null, spFirstId: null });
+    this.toOverlay(d.teamId, false);
+  }
+  detailPass() {
+    const d = this.state.detail; if (!d) return;
+    this.sfx('click');
+    this.setState({ detail: null, spStage: 'second', spFirstId: d.teamId });
+  }
+  detailLock() {
+    const d = this.state.detail; if (!d) return;
+    this.setState({ mode: null, spStage: null, spFirstId: null });
+    this.toOverlay(d.teamId, false);
+  }
+  // HIGH BID: live bids run per-team, shown on the cards, while ripping continues
+  detailBid() {
+    const d = this.state.detail; if (!d) return;
+    this.sfx('coin');
+    this.setState(s => ({ detail: { teamId: d.teamId, kind: 'bid' },
+      liveBids: { ...s.liveBids, [d.teamId]: 0 } }));
+    setTimeout(() => this.persist(), 0);
+  }
+  bumpBid(n) {
+    const d = this.state.detail; if (!d || this.state.liveBids[d.teamId] == null) return;
+    this.sfx('click');
+    this.setState(s => ({ liveBids: { ...s.liveBids, [d.teamId]: Math.max(0, (s.liveBids[d.teamId] || 0) + n) } }));
+    setTimeout(() => this.persist(), 0);
+  }
+  endLiveBid() {
+    const d = this.state.detail; if (!d) return;
+    const price = this.state.liveBids[d.teamId] || 0;
+    this.sfx('coin');
+    this.setState(s => {
+      const lb = { ...s.liveBids }; delete lb[d.teamId];
+      return { detail: null, liveBids: lb,
+        overlay: { teamId: d.teamId, winner: '', announced: false, auction: true, price } };
+    });
+    setTimeout(() => this.persist(), 0);
+  }
+  dropLiveBid() {
+    const d = this.state.detail; if (!d) return;
+    this.setState(s => {
+      const lb = { ...s.liveBids }; delete lb[d.teamId];
+      return { detail: null, liveBids: lb };
+    });
+    setTimeout(() => this.persist(), 0);
+  }
+  detailUndo() {
+    const d = this.state.detail; if (!d) return;
+    this.sfx('click');
+    this.setState(s => ({ detail: null, teams: s.teams.map(t => t.id === d.teamId ? { ...t, status: 'available', winner: null } : t),
+      wins: s.wins.filter(w => w.id !== d.teamId) }));
+    setTimeout(() => this.persist(), 0);
+  }
+  detailCancel() { this.setState({ detail: null }); }
+
+  // ---------- see 2/3 chooser ----------
+  pickFromChooser(id) {
+    this.sfx('coin');
+    this.setState({ chooser: null, queue: [], mode: null,
+      overlay: { teamId: id, winner: '', announced: false, auction: false } });
+  }
+  chooserCancel() { this.clearMode(); }
+
+  // ---------- winner flow ----------
+  setWinnerName(e) { const v = e.target.value; this.setState(s => ({ overlay: { ...s.overlay, winner: v } })); }
+  winnerKey(e) { if (e.key === 'Enter') this.crownWinner(); }
+  // one step: crowning IS the win — records the sale and fires the celebration
+  crownWinner() {
+    const o = this.state.overlay;
+    if (!o || !o.winner.trim() || o.announced) return;
+    this.sfx('win'); this.sfx('stamp');
+    this.setState(s => {
+      const t = s.teams.find(x => x.id === o.teamId);
+      const name = o.winner.trim();
+      const priceTag = o.auction && o.price > 0 ? ' — $' + o.price : '';
+      return {
+        overlay: { ...s.overlay, announced: true },
+        saleFocus: '' + name + (o.auction ? ' TOOK THE ' + t.name.toUpperCase() + ' AUCTION' + priceTag + '!' : ' WON THE ' + t.name.toUpperCase() + '!'),
+        teams: s.teams.map(x => x.id === o.teamId ? { ...x, status: 'won', winner: name } : x),
+        wins: [{ id: t.id, abbr: t.abbr, color: t.color, team: t.name, winner: name, price: o.auction ? (o.price || 0) : 0 }, ...s.wins],
+      };
+    });
+    if (this.saleTimer) clearTimeout(this.saleTimer);
+    this.saleTimer = setTimeout(() => { this.saleTimer = null; this.setState({ saleFocus: null }); }, 45000);
+    if (this.overlayTimer) clearTimeout(this.overlayTimer);
+    this.overlayTimer = setTimeout(() => { this.overlayTimer = null; this.setState({ overlay: null }); }, 8000);
+    setTimeout(() => this.persist(), 0);
+  }
+  closeOverlay() {
+    if (this.overlayTimer) { clearTimeout(this.overlayTimer); this.overlayTimer = null; }
+    this.setState({ overlay: null });
+  }
+
+  // ---------- taskbar popovers ----------
+  openGivvy() { this.sfx('click'); this.setState({ givvyOpen: true, ripsOpen: false }); }
+  closeGivvy() { this.setState({ givvyOpen: false }); }
+  openRips() { this.sfx('click'); this.setState({ ripsOpen: true, givvyOpen: false }); }
+  closeRips() { this.setState({ ripsOpen: false }); }
+
+  // ---------- givvy ----------
+  setGivvy(e) { const v = e.target.value; this.setState({ givvyNames: v }); }
+  setBuyersMode() { this.sfx('click'); this.setState({ givvyMode: 'buyers', givvyDisplay: null }); }
+  setFollowersMode() { this.sfx('click'); this.setState({ givvyMode: 'followers', givvyDisplay: null }); }
+  buyersPool() {
+    const seen = new Set(); const pool = [];
+    this.state.wins.forEach(w => { const n = (w.winner || '').trim(); if (n && !seen.has(n.toLowerCase())) { seen.add(n.toLowerCase()); pool.push(n); } });
+    return pool;
+  }
+  spinGivvy() {
+    const mode = this.state.givvyMode;
+    let names, tag, empty;
+    if (mode === 'buyers') { names = this.buyersPool(); tag = '🎁 BUYERS GIVVY: '; empty = 'no buyers yet'; }
+    else {
+      names = this.state.givvyNames.split(/[\n,]+/).map(s => s.trim().replace(/^@/, '')).filter(Boolean);
+      tag = '💜 FOLLOWER GIVVY: '; empty = 'paste followers first';
+    }
+    if (!names.length) { this.setState({ givvyDisplay: empty }); return; }
+    if (this.givvyTimer) clearInterval(this.givvyTimer);
+    this.sfx('coin');
+    let ticks = 0; const total = 18;
+    this.givvyTimer = setInterval(() => {
+      ticks++;
+      const raw = names[Math.floor(Math.random() * names.length)];
+      const pick = mode === 'followers' ? '@' + raw : raw;
+      if (ticks >= total) {
+        clearInterval(this.givvyTimer);
+        this.sfx('win');
+        this.setState(s => ({ givvyDisplay: '★ ' + pick, promos: [tag + pick + ' 🎉', ...s.promos] }));
+      } else {
+        this.setState({ givvyDisplay: pick });
+      }
+    }, ticks < 10 ? 60 : 130);
+  }
+
+  toggleSound() { this.setState(s => ({ soundOn: !s.soundOn })); }
+  resetBoard() {
+    if (this.givvyTimer) clearInterval(this.givvyTimer);
+    if (this.saleTimer) { clearTimeout(this.saleTimer); this.saleTimer = null; }
+    if (this.overlayTimer) { clearTimeout(this.overlayTimer); this.overlayTimer = null; }
+    this.clearPersist();
+    this.setState(s => ({ teams: s.teams.map(t => ({ ...t, status: 'available', winner: null })), wins: [],
+      overlay: null, mode: null, spStage: null, spFirstId: null, queue: [], detail: null, chooser: null,
+      saleFocus: null, givvyOpen: false, ripsOpen: false, liveBids: {} }));
+  }
+  componentWillUnmount() {
+    if (this.givvyTimer) clearInterval(this.givvyTimer);
+    if (this.saleTimer) clearTimeout(this.saleTimer);
+    if (this.overlayTimer) clearTimeout(this.overlayTimer);
+  }
+
+  // ---------- render ----------
+  renderVals() {
+    const s = this.state;
+    const withLogo = (t) => t ? { ...t, logo: this.logoUrl(t.abbr) } : t;
+    const mapT = (t) => ({ ...withLogo(t), isWon: t.status === 'won',
+      border: (s.queue.indexOf(t.id) !== -1 || s.liveBids[t.id] != null) ? '#c4c9cc' : t.color,
+      hasBid: s.liveBids[t.id] != null, bidText: '$' + (s.liveBids[t.id] || 0),
+      select: () => this.selectTeam(t.id) });
+    const byDiv = {};
+    s.teams.forEach(t => { (byDiv[t.div] = byDiv[t.div] || []).push(t); });
+    const DIVS = ['AL EAST','AL CENTRAL','AL WEST','NL EAST','NL CENTRAL','NL WEST'];
+    const divisions = DIVS.map(d => ({ label: d, color: d.indexOf('AL') === 0 ? '#c4c9cc' : '#aab0b5',
+      teams: (byDiv[d] || []).map(mapT) }));
+
+    const remaining = s.teams.filter(t => t.status !== 'won').length;
+    const pct = Math.round(((30 - remaining) / 30) * 100);
+
+    // ticker — sale focus for a bit after each stamp, otherwise wins + promos
+    let items = [];
+    if (s.saleFocus) {
+      items = [
+        { text: s.saleFocus, color: '#c4c9cc' },
+        { text: remaining + ' TEAMS STILL ON THE BOARD', color: '#ff9d9d' },
+        { text: s.saleFocus, color: '#c4c9cc' },
+        { text: 'DA BOMB BREAKS · LIVE ON WHATNOT', color: '#d9dde0' },
+      ];
+    } else {
+      s.wins.slice(0, 6).forEach(w => items.push({ text: (w.winner + ' RIPPED THE ' + w.team.toUpperCase() + '!'), color: '#c4c9cc' }));
+      items.push({ text: remaining + ' TEAMS STILL ON THE BOARD', color: '#ff9d9d' });
+      s.promos.forEach(p => items.push({ text: p, color: '#d9dde0' }));
+    }
+    const tickerLoop = items.concat(items);
+
+    const overlayT = s.overlay ? withLogo(s.teams.find(t => t.id === s.overlay.teamId)) : null;
+    const detailT = s.detail ? withLogo(s.teams.find(t => t.id === s.detail.teamId)) : null;
+
+    // instruction strip
+    let instruction = '';
+    const spFirstT = s.spFirstId ? s.teams.find(t => t.id === s.spFirstId) : null;
+    if (s.mode === 'sp') {
+      instruction = s.spStage === 'second'
+        ? ('PASSED THE ' + (spFirstT ? spFirstT.name.toUpperCase() : '') + ' — TAP THE SECOND SPIN (BLIND KEEP)')
+        : 'STASH OR PASS — TAP THE TEAM THE WHEEL LANDED ON';
+    } else if (s.mode === 'see2' || s.mode === 'see3') {
+      const need = s.mode === 'see2' ? 2 : 3;
+      instruction = 'TAP SPUN TEAM ' + Math.min(s.queue.length + 1, need) + ' OF ' + need + ' — BUYER PICKS ONE';
+    } else if (s.mode === 'auction') {
+      instruction = 'HIGH BID ON — TAP A TEAM TO START ITS LIVE BID';
+    }
+    const queueTeams = s.queue.map(id => withLogo(s.teams.find(t => t.id === id)));
+
+    const chooserTeams = (s.chooser || []).map(id => {
+      const t = withLogo(s.teams.find(x => x.id === id));
+      return { ...t, playerLine: this.players(t.abbr).slice(0, 3).join(' · '), pick: () => this.pickFromChooser(id) };
+    });
+
+    let confetti = [], fireworks = [];
+    if (s.overlay && s.overlay.announced && overlayT) {
+      // celebration in the winning team's colors
+      const cols = [overlayT.color, this.secondary(overlayT.abbr), '#ffffff'];
+      confetti = Array.from({ length: 80 }, () => ({
+        left: Math.floor(Math.random() * 100) + '%',
+        color: cols[Math.floor(Math.random() * cols.length)],
+        dur: (1.8 + Math.random() * 1.6).toFixed(2) + 's',
+        delay: (Math.random() * 0.5).toFixed(2) + 's',
+      }));
+      const bursts = [
+        { left: 15, top: 30 }, { left: 84, top: 26 }, { left: 25, top: 68 },
+        { left: 75, top: 64 }, { left: 50, top: 18 }, { left: 8, top: 52 }, { left: 92, top: 50 },
+      ];
+      bursts.forEach((b, bi) => {
+        const n = 14, delay = (bi * 0.45).toFixed(2) + 's', dur = (1.4 + (bi % 3) * 0.25).toFixed(2) + 's';
+        for (let i = 0; i < n; i++) {
+          fireworks.push({
+            left: b.left + '%', top: b.top + '%',
+            angle: Math.round(i * (360 / n)) + 'deg',
+            dist: -(60 + (i % 3) * 22) + 'px',
+            color: cols[i % cols.length],
+            delay, dur,
+          });
+        }
+      });
+    }
+
+    const modeBtn = (on) => ({
+      bg: on ? 'linear-gradient(90deg,#3a3f44,#6b7176)' : 'rgba(20,21,23,.85)',
+      color: on ? '#fff' : '#b9bfc3',
+      border: on ? '#c4c9cc' : 'rgba(165,172,175,.5)',
+    });
+    const spB = modeBtn(s.mode === 'sp'), s2B = modeBtn(s.mode === 'see2'), s3B = modeBtn(s.mode === 'see3');
+    const hbB = s.mode === 'auction'
+      ? { bg: 'linear-gradient(90deg,#b5232d,#e04b3a)', color: '#fff', border: '#c4c9cc' }
+      : { bg: 'rgba(20,21,23,.85)', color: '#b9bfc3', border: 'rgba(165,172,175,.5)' };
+
+    return {
+      divisions, remaining, pct, tickerLoop,
+      soundIcon: s.soundOn ? '🔊' : '🔇',
+      toggleSound: () => this.toggleSound(),
+      resetBoard: () => this.resetBoard(),
+
+      armSP: () => this.armMode('sp'), armSee2: () => this.armMode('see2'), armSee3: () => this.armMode('see3'),
+      armHB: () => this.armMode('auction'),
+      spBg: spB.bg, spColor: spB.color, spBorder: spB.border,
+      see2Bg: s2B.bg, see2Color: s2B.color, see2Border: s2B.border,
+      see3Bg: s3B.bg, see3Color: s3B.color, see3Border: s3B.border,
+      hbBg: hbB.bg, hbColor: hbB.color, hbBorder: hbB.border,
+      hasInstruction: !!instruction, instruction, queueTeams,
+
+      detailTeam: detailT,
+      detailPlayers: detailT ? this.players(detailT.abbr).slice(0, 3) : [],
+      detailKicker: (function(k){
+        if (k === 'sp1') return 'stash it… or pass it?';
+        if (k === 'sp2') return 'second spin — blind keep';
+        if (k === 'auction') return 'up for auction — highest bid takes it';
+        if (k === 'bid') return 'live bid — keep it matched to chat';
+        if (k === 'won') return 'won by ' + (detailT && detailT.winner ? detailT.winner : '');
+        return 'up on the board';
+      })(s.detail ? s.detail.kind : ''),
+      detailIsPlain: !!(s.detail && s.detail.kind === 'plain'),
+      detailIsWon: !!(s.detail && s.detail.kind === 'won'),
+      detailIsSP1: !!(s.detail && s.detail.kind === 'sp1'),
+      detailIsSP2: !!(s.detail && s.detail.kind === 'sp2'),
+      detailIsAuction: !!(s.detail && s.detail.kind === 'auction'),
+      detailWin: () => this.detailWin(), detailUndo: () => this.detailUndo(),
+      detailStash: () => this.detailStash(), detailPass: () => this.detailPass(),
+      detailLock: () => this.detailLock(), detailBid: () => this.detailBid(),
+      detailCancel: () => this.detailCancel(),
+
+      hasChooser: !!(s.chooser && s.chooser.length), chooserTeams, chooserCancel: () => this.chooserCancel(),
+
+      bidP1: () => this.bumpBid(1), bidP5: () => this.bumpBid(5), bidP10: () => this.bumpBid(10),
+      bidP25: () => this.bumpBid(25), bidM5: () => this.bumpBid(-5),
+      endLiveBid: () => this.endLiveBid(), dropLiveBid: () => this.dropLiveBid(),
+      detailIsBid: !!(s.detail && s.detail.kind === 'bid'),
+      detailBidText: s.detail ? '$' + (s.liveBids[s.detail.teamId] || 0) : '$0',
+      totalText: '$' + s.wins.reduce((sum, w) => sum + (w.price || 0), 0),
+
+      wins: s.wins.map(w => ({ ...w, logo: this.logoUrl(w.abbr), hasPrice: (w.price || 0) > 0, priceText: '$' + (w.price || 0) })),
+      winCount: s.wins.length, noWins: s.wins.length === 0,
+
+      overlayTeam: overlayT,
+      overlayTeamUpper: overlayT ? overlayT.name.toUpperCase() : '',
+      overlayPrompt: s.overlay && s.overlay.auction ? 'WHO WON THE BID?' : 'WHO WON IT?',
+      overlayWinVerb: s.overlay && s.overlay.auction ? 'TOOK' : 'WON',
+      overlayHasPrice: !!(s.overlay && s.overlay.auction && (s.overlay.price || 0) > 0),
+      overlayPriceText: s.overlay ? '$' + (s.overlay.price || 0) : '',
+      overlayWinner: s.overlay ? s.overlay.winner : '',
+      overlayAnnounced: !!(s.overlay && s.overlay.announced),
+      overlayEntering: !!(s.overlay && !s.overlay.announced),
+      setWinnerName: (e) => this.setWinnerName(e), winnerKey: (e) => this.winnerKey(e),
+      crownWinner: () => this.crownWinner(), closeOverlay: () => this.closeOverlay(),
+      confetti, fireworks,
+
+      hasGivvyOpen: !!s.givvyOpen, hasRipsOpen: !!s.ripsOpen,
+      openGivvy: () => this.openGivvy(), closeGivvy: () => this.closeGivvy(),
+      openRips: () => this.openRips(), closeRips: () => this.closeRips(),
+      eatClick: (e) => { if (e && e.stopPropagation) e.stopPropagation(); },
+
+      givvyNames: s.givvyNames, setGivvy: (e) => this.setGivvy(e), spinGivvy: () => this.spinGivvy(),
+      givvyDisplayText: s.givvyDisplay || 'ready to draw',
+      givvyColor: s.givvyDisplay && s.givvyDisplay.indexOf('★') === 0 ? '#c4c9cc' : '#d9dde0',
+      isBuyersMode: s.givvyMode === 'buyers', isFollowersMode: s.givvyMode === 'followers',
+      setBuyersMode: () => this.setBuyersMode(), setFollowersMode: () => this.setFollowersMode(),
+      buyersCount: this.buyersPool().length,
+      buyersTabBg: s.givvyMode === 'buyers' ? '#3a3f44' : 'transparent',
+      buyersTabColor: s.givvyMode === 'buyers' ? '#fff' : '#8a9096',
+      followersTabBg: s.givvyMode === 'followers' ? '#3a3f44' : 'transparent',
+      followersTabColor: s.givvyMode === 'followers' ? '#fff' : '#8a9096',
+      spinLabel: s.givvyMode === 'buyers' ? 'DRAW A BUYER' : 'DRAW A FOLLOWER',
+    };
+  }
+}
+</script>
+</body>
+</html>
