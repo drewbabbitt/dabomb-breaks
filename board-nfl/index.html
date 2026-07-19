@@ -6,9 +6,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Da Bomb Board">
+<meta name="apple-mobile-web-app-title" content="Da Bomb NFL">
 <link rel="apple-touch-icon" href="./icon.png">
-<title>Da Bomb Breaks — Live Board</title>
+<title>Da Bomb Breaks — NFL Live Board</title>
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="./support.js"></script>
@@ -58,7 +58,7 @@
       <span style="font-family: 'Anton'; font-size: 40px; letter-spacing: 2px; color: #e9edef;
         text-shadow: 0 2px 0 #55595c, 0 4px 14px rgba(0,0,0,.9);">DABOMB <span style="color: #ff4d3d;
         text-shadow: 0 2px 0 #7a1218, 0 4px 14px rgba(0,0,0,.9);">BREAKS</span></span>
-      <span style="font-family: 'Oswald'; font-weight: 600; font-size: 13px; letter-spacing: 7px; color: #b9bfc3;">LIVE BREAK BOARD</span>
+      <span style="font-family: 'Oswald'; font-weight: 600; font-size: 13px; letter-spacing: 7px; color: #b9bfc3;">NFL LIVE BREAK BOARD</span>
     </div>
     <div style="flex: 1 1 auto;"></div>
     <div style="display: flex; flex-direction: column; gap: 8px; align-items: stretch;">
@@ -70,8 +70,8 @@
         style="display: inline-flex; align-items: center; justify-content: center; height: 42px; padding: 0 14px;
         border: 2px solid #c4c9cc; border-radius: 9px; font-family: 'Anton'; font-size: 13px; letter-spacing: 1px;
         color: #e9edef; background: rgba(20,21,23,.9); text-decoration: none;">DABOMB SITE ▸</a>
-      <a href="../board-nfl/" style="text-align: center; font-family: 'Anton'; font-size: 11px; letter-spacing: 1px;
-        color: #8a9096; text-decoration: none;">SWITCH TO NFL BOARD</a>
+      <a href="../board/" style="text-align: center; font-family: 'Anton'; font-size: 11px; letter-spacing: 1px;
+        color: #8a9096; text-decoration: none;">SWITCH TO MLB BOARD</a>
     </div>
   </div>
 
@@ -106,7 +106,7 @@
     <!-- board count -->
     <div style="flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 2px;">
       <span style="font-family: 'Anton'; font-size: 14px; line-height: 1; color: #fff; background: #0c0d0e;
-        padding: 5px 7px; border-radius: 7px; border: 2px solid #c4c9cc; white-space: nowrap;">{{ remaining }}/30</span>
+        padding: 5px 7px; border-radius: 7px; border: 2px solid #c4c9cc; white-space: nowrap;">{{ remaining }}/32</span>
       <div style="height: 4px; width: 52px; border-radius: 3px; background: #0c0d0e; overflow: hidden; border: 1px solid rgba(165,172,175,.4);">
         <div style="height: 100%; width: {{ pct }}%; background: linear-gradient(90deg,#3a3f44,#c4c9cc); transition: width .5s ease;"></div>
       </div>
@@ -174,14 +174,14 @@
     <div style="flex: 1 1 auto; min-height: 0; overflow: hidden; background: rgba(16,17,19,.88);
       border: 2px solid rgba(165,172,175,.45); border-radius: 14px; padding: 8px 10px;
       display: flex; flex-direction: column; gap: 6px; box-shadow: 0 0 24px rgba(90,96,100,.25);">
-      <sc-for list="{{ divisions }}" as="dv" hint-placeholder-count="6">
+      <sc-for list="{{ divisions }}" as="dv" hint-placeholder-count="8">
         <div style="flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; gap: 3px;">
           <div style="flex: 0 0 auto; display: flex; align-items: center; gap: 8px; line-height: 1;">
             <span style="font-family: 'Anton'; font-size: 11px; letter-spacing: 3px; color: {{ dv.color }};">{{ dv.label }}</span>
             <span style="flex: 1; height: 1px; background: linear-gradient(90deg, {{ dv.color }}, transparent);"></span>
           </div>
-          <div style="flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: 1fr; gap: 8px;">
-            <sc-for list="{{ dv.teams }}" as="t" hint-placeholder-count="5">
+          <div style="flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr; gap: 8px;">
+            <sc-for list="{{ dv.teams }}" as="t" hint-placeholder-count="4">
               <div onClick="{{ t.select }}" style="position: relative; cursor: pointer; border-radius: 12px; min-height: 0;
                 overflow: hidden; background: #fff; border: 4px solid {{ t.border }};
                 box-shadow: 0 4px 12px rgba(0,0,0,.55); display: flex; align-items: center;
@@ -480,42 +480,44 @@ class Component extends DCLogic {
   state = {
     teams: (function(){
       const raw = [
-        ['BAL','Orioles','Baltimore','#DF4601','AL EAST'],
-        ['BOS','Red Sox','Boston','#BD3039','AL EAST'],
-        ['NYY','Yankees','New York','#0C2340','AL EAST'],
-        ['TB','Rays','Tampa Bay','#092C5C','AL EAST'],
-        ['TOR','Blue Jays','Toronto','#134A8E','AL EAST'],
-        ['CWS','White Sox','Chicago','#232323','AL CENTRAL'],
-        ['CLE','Guardians','Cleveland','#00385D','AL CENTRAL'],
-        ['DET','Tigers','Detroit','#0C2340','AL CENTRAL'],
-        ['KC','Royals','Kansas City','#004687','AL CENTRAL'],
-        ['MIN','Twins','Minnesota','#002B5C','AL CENTRAL'],
-        ['HOU','Astros','Houston','#002D62','AL WEST'],
-        ['LAA','Angels','Los Angeles','#BA0021','AL WEST'],
-        ['ATH','Athletics','West Sacramento','#0B3D2E','AL WEST'],
-        ['SEA','Mariners','Seattle','#0C2C56','AL WEST'],
-        ['TEX','Rangers','Texas','#003278','AL WEST'],
-        ['ATL','Braves','Atlanta','#CE1141','NL EAST'],
-        ['MIA','Marlins','Miami','#00A3E0','NL EAST'],
-        ['NYM','Mets','New York','#002D72','NL EAST'],
-        ['PHI','Phillies','Philadelphia','#E81828','NL EAST'],
-        ['WSH','Nationals','Washington','#AB0003','NL EAST'],
-        ['CHC','Cubs','Chicago','#0E3386','NL CENTRAL'],
-        ['CIN','Reds','Cincinnati','#C6011F','NL CENTRAL'],
-        ['MIL','Brewers','Milwaukee','#12284B','NL CENTRAL'],
-        ['PIT','Pirates','Pittsburgh','#27251F','NL CENTRAL'],
-        ['STL','Cardinals','St. Louis','#C41E3A','NL CENTRAL'],
-        ['ARI','D-backs','Arizona','#A71930','NL WEST'],
-        ['COL','Rockies','Colorado','#33006F','NL WEST'],
-        ['LAD','Dodgers','Los Angeles','#005A9C','NL WEST'],
-        ['SD','Padres','San Diego','#2F241D','NL WEST'],
-        ['SF','Giants','San Francisco','#FD5A1E','NL WEST'],
+        ['BUF','Bills','Buffalo','#00338D','AFC EAST'],
+        ['MIA','Dolphins','Miami','#008E97','AFC EAST'],
+        ['NE','Patriots','New England','#002244','AFC EAST'],
+        ['NYJ','Jets','New York','#125740','AFC EAST'],
+        ['BAL','Ravens','Baltimore','#241773','AFC NORTH'],
+        ['CIN','Bengals','Cincinnati','#FB4F14','AFC NORTH'],
+        ['CLE','Browns','Cleveland','#311D00','AFC NORTH'],
+        ['PIT','Steelers','Pittsburgh','#FFB612','AFC NORTH'],
+        ['HOU','Texans','Houston','#03202F','AFC SOUTH'],
+        ['IND','Colts','Indianapolis','#002C5F','AFC SOUTH'],
+        ['JAX','Jaguars','Jacksonville','#006778','AFC SOUTH'],
+        ['TEN','Titans','Tennessee','#4B92DB','AFC SOUTH'],
+        ['DEN','Broncos','Denver','#FB4F14','AFC WEST'],
+        ['KC','Chiefs','Kansas City','#E31837','AFC WEST'],
+        ['LV','Raiders','Las Vegas','#000000','AFC WEST'],
+        ['LAC','Chargers','Los Angeles','#0080C6','AFC WEST'],
+        ['DAL','Cowboys','Dallas','#003594','NFC EAST'],
+        ['NYG','Giants','New York','#0B2265','NFC EAST'],
+        ['PHI','Eagles','Philadelphia','#004C54','NFC EAST'],
+        ['WAS','Commanders','Washington','#5A1414','NFC EAST'],
+        ['CHI','Bears','Chicago','#C83803','NFC NORTH'],
+        ['DET','Lions','Detroit','#0076B6','NFC NORTH'],
+        ['GB','Packers','Green Bay','#203731','NFC NORTH'],
+        ['MIN','Vikings','Minnesota','#4F2683','NFC NORTH'],
+        ['ATL','Falcons','Atlanta','#A71930','NFC SOUTH'],
+        ['CAR','Panthers','Carolina','#0085CA','NFC SOUTH'],
+        ['NO','Saints','New Orleans','#D3BC8D','NFC SOUTH'],
+        ['TB','Buccaneers','Tampa Bay','#D50A0A','NFC SOUTH'],
+        ['ARI','Cardinals','Arizona','#97233F','NFC WEST'],
+        ['LAR','Rams','Los Angeles','#003594','NFC WEST'],
+        ['SF','49ers','San Francisco','#AA0000','NFC WEST'],
+        ['SEA','Seahawks','Seattle','#002244','NFC WEST'],
       ];
       return raw.map(r => ({ id: r[0], abbr: r[0], name: r[1], city: r[2], color: r[3], div: r[4], status: 'available', winner: null }));
     })(),
     wins: [],
     promos: [
-      'DA BOMB BREAKS · LIVE ON WHATNOT',
+      'DA BOMB BREAKS · NFL · LIVE ON WHATNOT',
       'FOLLOW → WHATNOT.COM/USER/DABOMB_BREAKS',
       'SHOP & CONSIGN → DREWB-IT.COM/DABOMB-BREAKS',
       "BOOM — LET'S CHASE HITS",
@@ -543,48 +545,52 @@ class Component extends DCLogic {
 
   secondary(abbr) {
     const S = {
-      BAL:'#000000', BOS:'#0C2340', NYY:'#C4CED3', TB:'#8FBCE6', TOR:'#E8291C',
-      CWS:'#C4CED4', CLE:'#E31937', DET:'#FA4616', KC:'#BD9B60', MIN:'#D31145',
-      HOU:'#EB6E1F', LAA:'#003263', ATH:'#EFB21E', SEA:'#005C5C', TEX:'#C0111F',
-      ATL:'#13274F', MIA:'#EF3340', NYM:'#FF5910', PHI:'#002D72', WSH:'#14225A',
-      CHC:'#CC3433', CIN:'#000000', MIL:'#FFC52F', PIT:'#FDB827', STL:'#0C2340',
-      ARI:'#E3D4AD', COL:'#C4CED4', LAD:'#EF3E42', SD:'#FFC425', SF:'#000000',
+      BUF:'#C60C30', MIA:'#FC4C02', NE:'#C60C30', NYJ:'#FFFFFF',
+      BAL:'#9E7C0C', CIN:'#000000', CLE:'#FF3C00', PIT:'#101820',
+      HOU:'#A71930', IND:'#FFFFFF', JAX:'#D7A22A', TEN:'#0C2340',
+      DEN:'#002244', KC:'#FFB81C', LV:'#A5ACAF', LAC:'#FFC20E',
+      DAL:'#869397', NYG:'#A71930', PHI:'#A5ACAF', WAS:'#FFB612',
+      CHI:'#0B162A', DET:'#B0B7BC', GB:'#FFB612', MIN:'#FFC62F',
+      ATL:'#000000', CAR:'#101820', NO:'#101820', TB:'#FF7900',
+      ARI:'#FFB612', LAR:'#FFA300', SF:'#B3995D', SEA:'#69BE28',
     };
     return S[abbr] || '#ffffff';
   }
 
   players(abbr) {
     const P = {
-      BAL: ['Gunnar Henderson','Jackson Holliday','Adley Rutschman','Samuel Basallo'],
-      BOS: ['Roman Anthony','Kristian Campbell','Marcelo Mayer','Garrett Crochet'],
-      NYY: ['Aaron Judge','Jasson Domínguez','Ben Rice','Spencer Jones'],
-      TB:  ['Junior Caminero','Carson Williams','Shane McClanahan','Yandy Díaz'],
-      TOR: ['Vladimir Guerrero Jr.','Bo Bichette','George Springer','Arjun Nimmala'],
-      CWS: ['Colson Montgomery','Kyle Teel','Luis Robert Jr.','Noah Schultz'],
-      CLE: ['José Ramírez','Steven Kwan','Travis Bazzana','Chase DeLauter'],
-      DET: ['Tarik Skubal','Riley Greene','Jackson Jobe','Max Clark'],
-      KC:  ['Bobby Witt Jr.','Jac Caglianone','Vinnie Pasquantino','Salvador Perez'],
-      MIN: ['Byron Buxton','Royce Lewis','Walker Jenkins','Emmanuel Rodríguez'],
-      HOU: ['Jose Altuve','Yordan Alvarez','Hunter Brown','Cam Smith'],
-      LAA: ['Mike Trout','Zach Neto','Christian Moore','Logan O\'Hoppe'],
-      ATH: ['Jacob Wilson','Nick Kurtz','Lawrence Butler','Tyler Soderstrom'],
-      SEA: ['Julio Rodríguez','Cal Raleigh','Randy Arozarena','Colt Emerson'],
-      TEX: ['Wyatt Langford','Corey Seager','Evan Carter','Sebastian Walcott'],
-      ATL: ['Ronald Acuña Jr.','Michael Harris II','Chris Sale','Spencer Strider'],
-      MIA: ['Sandy Alcantara','Kyle Stowers','Eury Pérez','Agustín Ramírez'],
-      NYM: ['Juan Soto','Francisco Lindor','Pete Alonso','Jett Williams'],
-      PHI: ['Bryce Harper','Trea Turner','Andrew Painter','Zack Wheeler'],
-      WSH: ['James Wood','Dylan Crews','CJ Abrams','MacKenzie Gore'],
-      CHC: ['Pete Crow-Armstrong','Matt Shaw','Seiya Suzuki','Cade Horton'],
-      CIN: ['Elly De La Cruz','Hunter Greene','Chase Burns','Cam Collier'],
-      MIL: ['Jackson Chourio','Jacob Misiorowski','William Contreras','Jesús Made'],
-      PIT: ['Paul Skenes','Oneil Cruz','Bubba Chandler','Konnor Griffin'],
-      STL: ['Masyn Winn','JJ Wetherholt','Iván Herrera','Brendan Donovan'],
-      ARI: ['Corbin Carroll','Ketel Marte','Jordan Lawlar','Gabriel Moreno'],
-      COL: ['Ezequiel Tovar','Hunter Goodman','Charlie Condon','Chase Dollander'],
-      LAD: ['Shohei Ohtani','Mookie Betts','Yoshinobu Yamamoto','Roki Sasaki'],
-      SD:  ['Fernando Tatis Jr.','Jackson Merrill','Manny Machado','Leo De Vries'],
-      SF:  ['Rafael Devers','Logan Webb','Bryce Eldridge','Matt Chapman'],
+      BUF: ['Josh Allen','James Cook','Keon Coleman'],
+      MIA: ['Tua Tagovailoa','Tyreek Hill',"De'Von Achane"],
+      NE:  ['Drake Maye','TreVeyon Henderson','Stefon Diggs'],
+      NYJ: ['Garrett Wilson','Breece Hall','Justin Fields'],
+      BAL: ['Lamar Jackson','Derrick Henry','Zay Flowers'],
+      CIN: ['Joe Burrow',"Ja'Marr Chase",'Tee Higgins'],
+      CLE: ['Shedeur Sanders','Quinshon Judkins','Myles Garrett'],
+      PIT: ['Aaron Rodgers','DK Metcalf','Kaleb Johnson'],
+      HOU: ['C.J. Stroud','Nico Collins','Joe Mixon'],
+      IND: ['Jonathan Taylor','Tyler Warren','Anthony Richardson'],
+      JAX: ['Travis Hunter','Trevor Lawrence','Brian Thomas Jr.'],
+      TEN: ['Cam Ward','Calvin Ridley','Tony Pollard'],
+      DEN: ['Bo Nix','Patrick Surtain II','Courtland Sutton'],
+      KC:  ['Patrick Mahomes','Travis Kelce','Xavier Worthy'],
+      LV:  ['Ashton Jeanty','Brock Bowers','Geno Smith'],
+      LAC: ['Justin Herbert','Omarion Hampton','Ladd McConkey'],
+      DAL: ['Dak Prescott','CeeDee Lamb','George Pickens'],
+      NYG: ['Jaxson Dart','Malik Nabers','Cam Skattebo'],
+      PHI: ['Jalen Hurts','Saquon Barkley','A.J. Brown'],
+      WAS: ['Jayden Daniels','Terry McLaurin','Deebo Samuel'],
+      CHI: ['Caleb Williams','Rome Odunze','Colston Loveland'],
+      DET: ['Amon-Ra St. Brown','Jahmyr Gibbs','Jared Goff'],
+      GB:  ['Jordan Love','Josh Jacobs','Matthew Golden'],
+      MIN: ['J.J. McCarthy','Justin Jefferson','Jordan Addison'],
+      ATL: ['Bijan Robinson','Michael Penix Jr.','Drake London'],
+      CAR: ['Bryce Young','Tetairoa McMillan','Chuba Hubbard'],
+      NO:  ['Alvin Kamara','Chris Olave','Tyler Shough'],
+      TB:  ['Baker Mayfield','Mike Evans','Emeka Egbuka'],
+      ARI: ['Kyler Murray','Marvin Harrison Jr.','Trey McBride'],
+      LAR: ['Puka Nacua','Matthew Stafford','Kyren Williams'],
+      SF:  ['Brock Purdy','Christian McCaffrey','George Kittle'],
+      SEA: ['Jaxon Smith-Njigba','Sam Darnold','Kenneth Walker III'],
     };
     return P[abbr] || [];
   }
@@ -593,17 +599,17 @@ class Component extends DCLogic {
   persist() {
     try {
       const s = this.state;
-      localStorage.setItem('daBombBoard', JSON.stringify({
+      localStorage.setItem('daBombBoardNFL', JSON.stringify({
         teams: s.teams.map(t => ({ id: t.id, status: t.status, winner: t.winner })),
         wins: s.wins.map(w => ({ id: w.id, abbr: w.abbr, color: w.color, team: w.team, winner: w.winner, price: w.price || 0 })),
         liveBids: s.liveBids,
       }));
     } catch (e) {}
   }
-  clearPersist() { try { localStorage.removeItem('daBombBoard'); } catch (e) {} }
+  clearPersist() { try { localStorage.removeItem('daBombBoardNFL'); } catch (e) {} }
   componentDidMount() {
     try {
-      const raw = localStorage.getItem('daBombBoard');
+      const raw = localStorage.getItem('daBombBoardNFL');
       if (!raw) return;
       const d = JSON.parse(raw);
       this.setState(s => ({
@@ -851,12 +857,12 @@ class Component extends DCLogic {
       select: () => this.selectTeam(t.id) });
     const byDiv = {};
     s.teams.forEach(t => { (byDiv[t.div] = byDiv[t.div] || []).push(t); });
-    const DIVS = ['AL EAST','AL CENTRAL','AL WEST','NL EAST','NL CENTRAL','NL WEST'];
-    const divisions = DIVS.map(d => ({ label: d, color: d.indexOf('AL') === 0 ? '#c4c9cc' : '#aab0b5',
+    const DIVS = ['AFC EAST','AFC NORTH','AFC SOUTH','AFC WEST','NFC EAST','NFC NORTH','NFC SOUTH','NFC WEST'];
+    const divisions = DIVS.map(d => ({ label: d, color: d.indexOf('AFC') === 0 ? '#c4c9cc' : '#ff8c85',
       teams: (byDiv[d] || []).map(mapT) }));
 
     const remaining = s.teams.filter(t => t.status !== 'won').length;
-    const pct = Math.round(((30 - remaining) / 30) * 100);
+    const pct = Math.round(((32 - remaining) / 32) * 100);
 
     // ticker — sale focus for a bit after each stamp, otherwise wins + promos
     let items = [];
@@ -865,7 +871,7 @@ class Component extends DCLogic {
         { text: s.saleFocus, color: '#c4c9cc' },
         { text: remaining + ' TEAMS STILL ON THE BOARD', color: '#ff9d9d' },
         { text: s.saleFocus, color: '#c4c9cc' },
-        { text: 'DA BOMB BREAKS · LIVE ON WHATNOT', color: '#d9dde0' },
+        { text: 'DA BOMB BREAKS · NFL · LIVE ON WHATNOT', color: '#d9dde0' },
       ];
     } else {
       s.wins.slice(0, 6).forEach(w => items.push({ text: (w.winner + ' RIPPED THE ' + w.team.toUpperCase() + '!'), color: '#c4c9cc' }));
