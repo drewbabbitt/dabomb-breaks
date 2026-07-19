@@ -73,6 +73,100 @@
     </div>
   </div>
 
+  <!-- ===== UNIFIED TASKBAR (no-wrap, self-compressing) ===== -->
+  <div style="flex: 0 0 auto; display: flex; flex-wrap: nowrap; align-items: center; gap: 6px; padding: 6px 10px;
+    position: relative; z-index: 5; border-bottom: 1px solid rgba(165,172,175,.35);">
+    <button onClick="{{ armSP }}" style="cursor: pointer; flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden;
+      border: 2px solid {{ spBorder }}; color: {{ spColor }};
+      font-family: 'Anton'; font-size: 12px; padding: 11px 2px; border-radius: 9px;
+      background: {{ spBg }}; transition: filter .15s ease;" style-hover="filter: brightness(1.12);">
+      STASH·PASS
+    </button>
+    <button onClick="{{ armSee2 }}" style="cursor: pointer; flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden;
+      border: 2px solid {{ see2Border }}; color: {{ see2Color }};
+      font-family: 'Anton'; font-size: 12px; padding: 11px 2px; border-radius: 9px;
+      background: {{ see2Bg }}; transition: filter .15s ease;" style-hover="filter: brightness(1.12);">
+      SEE 2·PICK 1
+    </button>
+    <button onClick="{{ armSee3 }}" style="cursor: pointer; flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden;
+      border: 2px solid {{ see3Border }}; color: {{ see3Color }};
+      font-family: 'Anton'; font-size: 12px; padding: 11px 2px; border-radius: 9px;
+      background: {{ see3Bg }}; transition: filter .15s ease;" style-hover="filter: brightness(1.12);">
+      SEE 3·PICK 1
+    </button>
+    <button onClick="{{ armHB }}" style="cursor: pointer; flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden;
+      border: 2px solid {{ hbBorder }}; color: {{ hbColor }};
+      font-family: 'Anton'; font-size: 12px; padding: 11px 2px; border-radius: 9px;
+      background: {{ hbBg }}; transition: filter .15s ease;" style-hover="filter: brightness(1.12);">
+      HIGH BID
+    </button>
+
+    <!-- board count -->
+    <div style="flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 2px;">
+      <span style="font-family: 'Anton'; font-size: 14px; line-height: 1; color: #fff; background: #0c0d0e;
+        padding: 5px 7px; border-radius: 7px; border: 2px solid #c4c9cc; white-space: nowrap;">{{ remaining }}/30</span>
+      <div style="height: 4px; width: 52px; border-radius: 3px; background: #0c0d0e; overflow: hidden; border: 1px solid rgba(165,172,175,.4);">
+        <div style="height: 100%; width: {{ pct }}%; background: linear-gradient(90deg,#3a3f44,#c4c9cc); transition: width .5s ease;"></div>
+      </div>
+    </div>
+
+    <!-- running total -->
+    <div style="flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 2px;">
+      <span style="font-family: 'Anton'; font-size: 14px; line-height: 1; color: #c4c9cc; background: #0c0d0e;
+        padding: 5px 7px; border-radius: 7px; border: 2px solid #c4c9cc; white-space: nowrap;">{{ totalText }}</span>
+      <span style="font-family: 'Anton'; font-size: 7px; letter-spacing: 2px; color: #b9bfc3;">TOTAL</span>
+    </div>
+
+    <button onClick="{{ openGivvy }}" style="cursor: pointer; border: 2px solid #c4c9cc; background: rgba(196,201,204,.12);
+      color: #c4c9cc; font-family: 'Anton'; font-size: 11px; padding: 0 8px; height: 42px; white-space: nowrap;
+      border-radius: 9px; flex: 0 0 auto;" style-hover="background: rgba(196,201,204,.25);">GIVVY</button>
+    <button onClick="{{ openRips }}" style="cursor: pointer; border: 1px solid rgba(165,172,175,.5); background: rgba(20,21,23,.85);
+      color: #eef0f2; font-family: 'Anton'; font-size: 11px; padding: 0 8px; height: 42px; white-space: nowrap;
+      border-radius: 9px; flex: 0 0 auto;">WINS {{ winCount }}</button>
+    <button onClick="{{ toggleSound }}" style="cursor: pointer; border: 1px solid rgba(165,172,175,.5); background: rgba(20,21,23,.85);
+      color: #eef0f2; font-size: 15px; width: 38px; height: 42px; border-radius: 9px; display: flex;
+      align-items: center; justify-content: center; flex: 0 0 auto;">{{ soundIcon }}</button>
+    <button onClick="{{ resetBoard }}" style="cursor: pointer; border: 1px solid rgba(165,172,175,.5); background: rgba(20,21,23,.85);
+      color: #b9bfc3; font-family: 'Oswald'; font-weight: 600; font-size: 10px; letter-spacing: .5px;
+      padding: 0 7px; height: 42px; border-radius: 9px; flex: 0 0 auto;"
+      style-hover="border-color:#c4c9cc; color:#c4c9cc;">RESET</button>
+  </div>
+
+  <!-- mode instruction strip -->
+  <sc-if value="{{ hasInstruction }}" hint-placeholder-val="{{ false }}">
+    <div style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 8px 12px; position: relative; z-index: 5; background: rgba(90,96,100,.28);
+      border-bottom: 1px solid rgba(165,172,175,.4);">
+      <span style="font-family: 'Anton'; font-size: 14px; letter-spacing: 1px; color: #c4c9cc;">{{ instruction }}</span>
+      <sc-for list="{{ queueTeams }}" as="q" hint-placeholder-count="0">
+        <span style="width: 30px; height: 30px; border-radius: 50%; background: #fff; display: inline-flex;
+          align-items: center; justify-content: center; padding: 3px; border: 2px solid #c4c9cc;">
+          <img src="{{ q.logo }}" alt="{{ q.name }}" style="width: 100%; height: 100%; object-fit: contain;" /></span>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <!-- ===== TICKER ===== -->
+  <div style="height: 32px; flex: 0 0 auto; display: flex; align-items: center; position: relative; z-index: 5;
+    background: #0b0c0d; border-bottom: 2px solid #c4c9cc; overflow: hidden;">
+    <div style="flex: 0 0 auto; height: 100%; display: flex; align-items: center; gap: 7px;
+      padding: 0 14px; background: #d21f2c; color: #fff; font-family: 'Anton'; letter-spacing: .5px;
+      font-size: 13px; z-index: 2;">
+      <span style="width: 8px; height: 8px; border-radius: 50%; background: #b5232d;"></span>
+      LIVE
+    </div>
+    <div style="flex: 1 1 auto; overflow: hidden;">
+      <div style="display: inline-flex; white-space: nowrap; animation: tickerScroll 48s linear infinite; will-change: transform;">
+        <sc-for list="{{ tickerLoop }}" as="ti" hint-placeholder-count="8">
+          <span style="display: inline-flex; align-items: center; font-family: 'Anton';
+            font-size: 14px; letter-spacing: 1px; padding: 0 22px; color: {{ ti.color }};">
+            <span style="opacity: .6; color: #8a9096; margin-right: 22px;">◆</span>{{ ti.text }}
+          </span>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== TEAM GRID (all 30 visible, big card logos, no names) ===== -->
   <div style="flex: 1 1 auto; min-height: 0; position: relative; z-index: 5; padding: 8px 12px 10px; display: flex; flex-direction: column;">
     <div style="flex: 1 1 auto; min-height: 0; overflow: hidden; background: rgba(16,17,19,.88);
@@ -830,7 +924,7 @@ class Component extends DCLogic {
     }
 
     const modeBtn = (on) => ({
-      bg: on ? 'linear-gradient(90deg,#7a1218,#d21f2c)' : 'rgba(20,21,23,.85)',
+      bg: on ? 'linear-gradient(90deg,#3a3f44,#8a9096)' : 'rgba(20,21,23,.85)',
       color: on ? '#fff' : '#b9bfc3',
       border: on ? '#c4c9cc' : 'rgba(165,172,175,.5)',
     });
