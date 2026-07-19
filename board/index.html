@@ -47,117 +47,29 @@
   <div style="position: absolute; inset: 0; background:
     linear-gradient(180deg, rgba(5,5,6,.95) 0%, rgba(6,6,8,.93) 45%, rgba(4,4,5,.96) 100%);"></div>
 
-  <!-- ===== DA BOMB BREAKS HEADER (always on top) ===== -->
-  <div style="flex: 0 0 auto; height: 64px; display: flex; align-items: center; gap: 12px; padding: 0 14px;
-    position: relative; z-index: 70; background: #000; border-bottom: 3px solid #c4c9cc; box-shadow: 0 8px 26px rgba(0,0,0,.85);">
-    <img src="../assets/logo.svg" alt="Da Bomb Breaks" style="height: 42px; width: auto;" />
-    <div style="display: flex; flex-direction: column; line-height: 1; gap: 3px;">
-      <span style="font-family: 'Anton'; font-size: 24px; letter-spacing: 2px; color: #e9edef;
-        text-shadow: 0 1px 0 #55595c, 0 2px 6px rgba(0,0,0,.8);">DA BOMB <span style="color: #8a9096;">BREAKS</span></span>
-      <span style="font-family: 'Oswald'; font-weight: 500; font-size: 10px; letter-spacing: 5px; color: #8a9096;">LIVE BREAK BOARD</span>
+  <!-- ===== DA BOMB BREAKS BANNER (real Whatnot logo, always on top) ===== -->
+  <div style="flex: 0 0 auto; height: 140px; display: flex; align-items: center; gap: 18px; padding: 0 18px;
+    position: relative; z-index: 70; border-bottom: 3px solid #d21f2c; box-shadow: 0 10px 30px rgba(0,0,0,.85);
+    background: radial-gradient(500px 200px at 18% 50%, rgba(210,31,44,.35), transparent 70%),
+      radial-gradient(400px 180px at 85% 50%, rgba(210,31,44,.22), transparent 70%), #000;">
+    <img src="./logo.jpg" alt="DaBomb Breaks" style="height: 116px; width: 116px; border-radius: 50%;
+      border: 3px solid #d21f2c; box-shadow: 0 0 26px rgba(210,31,44,.55); flex: 0 0 auto;" />
+    <div style="display: flex; flex-direction: column; line-height: 1; gap: 5px;">
+      <span style="font-family: 'Anton'; font-size: 40px; letter-spacing: 2px; color: #e9edef;
+        text-shadow: 0 2px 0 #55595c, 0 4px 14px rgba(0,0,0,.9);">DABOMB <span style="color: #ff4d3d;
+        text-shadow: 0 2px 0 #7a1218, 0 4px 14px rgba(0,0,0,.9);">BREAKS</span></span>
+      <span style="font-family: 'Oswald'; font-weight: 600; font-size: 13px; letter-spacing: 7px; color: #b9bfc3;">LIVE BREAK BOARD</span>
     </div>
     <div style="flex: 1 1 auto;"></div>
-    <a href="https://www.whatnot.com/user/dabomb_breaks" target="_blank" rel="noopener"
-      style="display: inline-flex; align-items: center; height: 40px; padding: 0 14px; border: 2px solid #fff;
-      border-radius: 9px; font-family: 'Anton'; font-size: 13px; letter-spacing: 1px; color: #000;
-      background: linear-gradient(90deg,#c4c9cc,#e9edef); text-decoration: none;">WHATNOT ▸</a>
-    <a href="https://drewb-it.com/dabomb-breaks/" target="_blank" rel="noopener"
-      style="display: inline-flex; align-items: center; height: 40px; padding: 0 12px; border: 2px solid #c4c9cc;
-      border-radius: 9px; font-family: 'Anton'; font-size: 12px; letter-spacing: 1px; color: #e9edef;
-      background: rgba(20,21,23,.9); text-decoration: none;">DABOMB SITE ▸</a>
-  </div>
-
-  <!-- ===== UNIFIED TASKBAR (no-wrap, self-compressing) ===== -->
-  <div style="flex: 0 0 auto; display: flex; flex-wrap: nowrap; align-items: center; gap: 6px; padding: 6px 10px;
-    position: relative; z-index: 5; border-bottom: 1px solid rgba(165,172,175,.35);">
-    <button onClick="{{ armSP }}" style="cursor: pointer; flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden;
-      border: 2px solid {{ spBorder }}; color: {{ spColor }};
-      font-family: 'Anton'; font-size: 12px; padding: 11px 2px; border-radius: 9px;
-      background: {{ spBg }}; transition: filter .15s ease;" style-hover="filter: brightness(1.12);">
-      STASH·PASS
-    </button>
-    <button onClick="{{ armSee2 }}" style="cursor: pointer; flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden;
-      border: 2px solid {{ see2Border }}; color: {{ see2Color }};
-      font-family: 'Anton'; font-size: 12px; padding: 11px 2px; border-radius: 9px;
-      background: {{ see2Bg }}; transition: filter .15s ease;" style-hover="filter: brightness(1.12);">
-      SEE 2·PICK 1
-    </button>
-    <button onClick="{{ armSee3 }}" style="cursor: pointer; flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden;
-      border: 2px solid {{ see3Border }}; color: {{ see3Color }};
-      font-family: 'Anton'; font-size: 12px; padding: 11px 2px; border-radius: 9px;
-      background: {{ see3Bg }}; transition: filter .15s ease;" style-hover="filter: brightness(1.12);">
-      SEE 3·PICK 1
-    </button>
-    <button onClick="{{ armHB }}" style="cursor: pointer; flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden;
-      border: 2px solid {{ hbBorder }}; color: {{ hbColor }};
-      font-family: 'Anton'; font-size: 12px; padding: 11px 2px; border-radius: 9px;
-      background: {{ hbBg }}; transition: filter .15s ease;" style-hover="filter: brightness(1.12);">
-      HIGH BID
-    </button>
-
-    <!-- board count -->
-    <div style="flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 2px;">
-      <span style="font-family: 'Anton'; font-size: 14px; line-height: 1; color: #fff; background: #0c0d0e;
-        padding: 5px 7px; border-radius: 7px; border: 2px solid #c4c9cc; white-space: nowrap;">{{ remaining }}/30</span>
-      <div style="height: 4px; width: 52px; border-radius: 3px; background: #0c0d0e; overflow: hidden; border: 1px solid rgba(165,172,175,.4);">
-        <div style="height: 100%; width: {{ pct }}%; background: linear-gradient(90deg,#3a3f44,#c4c9cc); transition: width .5s ease;"></div>
-      </div>
-    </div>
-
-    <!-- running total -->
-    <div style="flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 2px;">
-      <span style="font-family: 'Anton'; font-size: 14px; line-height: 1; color: #c4c9cc; background: #0c0d0e;
-        padding: 5px 7px; border-radius: 7px; border: 2px solid #c4c9cc; white-space: nowrap;">{{ totalText }}</span>
-      <span style="font-family: 'Anton'; font-size: 7px; letter-spacing: 2px; color: #b9bfc3;">TOTAL</span>
-    </div>
-
-    <button onClick="{{ openGivvy }}" style="cursor: pointer; border: 2px solid #c4c9cc; background: rgba(196,201,204,.12);
-      color: #c4c9cc; font-family: 'Anton'; font-size: 11px; padding: 0 8px; height: 42px; white-space: nowrap;
-      border-radius: 9px; flex: 0 0 auto;" style-hover="background: rgba(196,201,204,.25);">GIVVY</button>
-    <button onClick="{{ openRips }}" style="cursor: pointer; border: 1px solid rgba(165,172,175,.5); background: rgba(20,21,23,.85);
-      color: #eef0f2; font-family: 'Anton'; font-size: 11px; padding: 0 8px; height: 42px; white-space: nowrap;
-      border-radius: 9px; flex: 0 0 auto;">WINS {{ winCount }}</button>
-    <button onClick="{{ toggleSound }}" style="cursor: pointer; border: 1px solid rgba(165,172,175,.5); background: rgba(20,21,23,.85);
-      color: #eef0f2; font-size: 15px; width: 38px; height: 42px; border-radius: 9px; display: flex;
-      align-items: center; justify-content: center; flex: 0 0 auto;">{{ soundIcon }}</button>
-    <button onClick="{{ resetBoard }}" style="cursor: pointer; border: 1px solid rgba(165,172,175,.5); background: rgba(20,21,23,.85);
-      color: #b9bfc3; font-family: 'Oswald'; font-weight: 600; font-size: 10px; letter-spacing: .5px;
-      padding: 0 7px; height: 42px; border-radius: 9px; flex: 0 0 auto;"
-      style-hover="border-color:#c4c9cc; color:#c4c9cc;">RESET</button>
-  </div>
-
-  <!-- mode instruction strip -->
-  <sc-if value="{{ hasInstruction }}" hint-placeholder-val="{{ false }}">
-    <div style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; gap: 10px;
-      padding: 8px 12px; position: relative; z-index: 5; background: rgba(90,96,100,.28);
-      border-bottom: 1px solid rgba(165,172,175,.4);">
-      <span style="font-family: 'Anton'; font-size: 14px; letter-spacing: 1px; color: #c4c9cc;">{{ instruction }}</span>
-      <sc-for list="{{ queueTeams }}" as="q" hint-placeholder-count="0">
-        <span style="width: 30px; height: 30px; border-radius: 50%; background: #fff; display: inline-flex;
-          align-items: center; justify-content: center; padding: 3px; border: 2px solid #c4c9cc;">
-          <img src="{{ q.logo }}" alt="{{ q.name }}" style="width: 100%; height: 100%; object-fit: contain;" /></span>
-      </sc-for>
-    </div>
-  </sc-if>
-
-  <!-- ===== TICKER ===== -->
-  <div style="height: 32px; flex: 0 0 auto; display: flex; align-items: center; position: relative; z-index: 5;
-    background: #0b0c0d; border-bottom: 2px solid #c4c9cc; overflow: hidden;">
-    <div style="flex: 0 0 auto; height: 100%; display: flex; align-items: center; gap: 7px;
-      padding: 0 14px; background: #c4c9cc; color: #0b0b0c; font-family: 'Anton'; letter-spacing: .5px;
-      font-size: 13px; z-index: 2;">
-      <span style="width: 8px; height: 8px; border-radius: 50%; background: #b5232d;"></span>
-      LIVE
-    </div>
-    <div style="flex: 1 1 auto; overflow: hidden;">
-      <div style="display: inline-flex; white-space: nowrap; animation: tickerScroll 48s linear infinite; will-change: transform;">
-        <sc-for list="{{ tickerLoop }}" as="ti" hint-placeholder-count="8">
-          <span style="display: inline-flex; align-items: center; font-family: 'Anton';
-            font-size: 14px; letter-spacing: 1px; padding: 0 22px; color: {{ ti.color }};">
-            <span style="opacity: .6; color: #8a9096; margin-right: 22px;">◆</span>{{ ti.text }}
-          </span>
-        </sc-for>
-      </div>
+    <div style="display: flex; flex-direction: column; gap: 8px; align-items: stretch;">
+      <a href="https://www.whatnot.com/user/dabomb_breaks" target="_blank" rel="noopener"
+        style="display: inline-flex; align-items: center; justify-content: center; height: 42px; padding: 0 16px;
+        border: 2px solid #fff; border-radius: 9px; font-family: 'Anton'; font-size: 14px; letter-spacing: 1px;
+        color: #fff; background: linear-gradient(90deg,#d21f2c,#ff4d3d); text-decoration: none;">WHATNOT ▸</a>
+      <a href="https://drewb-it.com/dabomb-breaks/" target="_blank" rel="noopener"
+        style="display: inline-flex; align-items: center; justify-content: center; height: 42px; padding: 0 14px;
+        border: 2px solid #c4c9cc; border-radius: 9px; font-family: 'Anton'; font-size: 13px; letter-spacing: 1px;
+        color: #e9edef; background: rgba(20,21,23,.9); text-decoration: none;">DABOMB SITE ▸</a>
     </div>
   </div>
 
@@ -182,7 +94,7 @@
                 <img src="{{ t.logo }}" alt="{{ t.name }}" style="width: 100%; height: 100%; object-fit: contain;" />
 
                 <sc-if value="{{ t.hasBid }}" hint-placeholder-val="{{ false }}">
-                  <div style="position: absolute; left: 0; right: 0; bottom: 0; background: #c4c9cc; color: #0b0b0c;
+                  <div style="position: absolute; left: 0; right: 0; bottom: 0; background: #d21f2c; color: #fff;
                     font-family: 'Anton'; font-size: 16px; letter-spacing: 1px; text-align: center; padding: 2px 0;
                     z-index: 2; border-top: 2px solid #0b0b0c;">BID {{ t.bidText }}</div>
                 </sc-if>
@@ -190,7 +102,7 @@
                 <sc-if value="{{ t.isWon }}" hint-placeholder-val="{{ false }}">
                   <div style="position: absolute; inset: 0; background: rgba(10,11,12,.87);
                     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; z-index: 3;">
-                    <div style="font-family: 'Anton'; font-size: 16px; color: #c4c9cc; border: 2px solid #c4c9cc;
+                    <div style="font-family: 'Anton'; font-size: 16px; color: #ff4d3d; border: 2px solid #ff4d3d;
                       border-radius: 4px; padding: 1px 8px; transform: rotate(-8deg); letter-spacing: 2px;">WON</div>
                     <div style="font-family: 'Oswald'; font-weight: 600; font-size: 10px; color: #b9bfc3;
                       text-align: center; max-width: 92%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ t.winner }}</div>
@@ -206,7 +118,7 @@
 
   <!-- ===== GIVVY POPOVER ===== -->
   <sc-if value="{{ hasGivvyOpen }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ closeGivvy }}" style="position: fixed; left: 0; right: 0; bottom: 0; top: 67px;
+    <div onClick="{{ closeGivvy }}" style="position: fixed; left: 0; right: 0; bottom: 0; top: 143px;
       z-index: 44; background: rgba(5,5,6,.8); display: flex; align-items: center; justify-content: center; padding: 16px;">
       <div onClick="{{ eatClick }}" style="width: min(440px, 92vw); border-radius: 16px; border: 3px solid #c4c9cc;
         background: #101113; box-shadow: 0 24px 70px rgba(0,0,0,.8); padding: 16px 18px;
@@ -231,8 +143,8 @@
           display: flex; align-items: center; justify-content: center; text-align: center; padding: 6px;
           font-family: 'Anton'; font-size: 18px; color: {{ givvyColor }}; letter-spacing: 1px;">{{ givvyDisplayText }}</div>
         <button onClick="{{ spinGivvy }}" style="cursor: pointer; border: 2px solid #c4c9cc; border-radius: 10px; padding: 11px;
-          font-family: 'Anton'; font-size: 15px; letter-spacing: 1px; color: #0b0b0c;
-          background: linear-gradient(90deg,#c4c9cc,#e9edef); transition: filter .15s ease;"
+          font-family: 'Anton'; font-size: 15px; letter-spacing: 1px; color: #fff;
+          background: linear-gradient(90deg,#d21f2c,#ff4d3d); transition: filter .15s ease;"
           style-hover="filter: brightness(1.08);">{{ spinLabel }}</button>
         <button onClick="{{ closeGivvy }}" style="cursor: pointer; border: none; background: transparent; color: #6d7378;
           font-family: 'Oswald'; font-weight: 600; font-size: 12px; letter-spacing: 1px; padding: 4px;">CLOSE</button>
@@ -242,7 +154,7 @@
 
   <!-- ===== RECENT RIPS POPOVER ===== -->
   <sc-if value="{{ hasRipsOpen }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ closeRips }}" style="position: fixed; left: 0; right: 0; bottom: 0; top: 67px;
+    <div onClick="{{ closeRips }}" style="position: fixed; left: 0; right: 0; bottom: 0; top: 143px;
       z-index: 44; background: rgba(5,5,6,.8); display: flex; align-items: center; justify-content: center; padding: 16px;">
       <div onClick="{{ eatClick }}" style="width: min(440px, 92vw); max-height: 70vh; border-radius: 16px; border: 3px solid #8a9096;
         background: #101113; box-shadow: 0 24px 70px rgba(0,0,0,.8); padding: 16px 18px;
@@ -282,7 +194,7 @@
 
   <!-- ===== TEAM POPUP (big logo + top 3 chases, all flows — sits below the banner) ===== -->
   <sc-if value="{{ detailTeam }}" hint-placeholder-val="{{ false }}">
-    <div style="position: fixed; left: 0; right: 0; bottom: 0; top: 67px; z-index: 45;
+    <div style="position: fixed; left: 0; right: 0; bottom: 0; top: 143px; z-index: 45;
       background: rgba(5,5,6,.85); display: flex; align-items: center; justify-content: center; padding: 12px;">
       <div style="width: min(560px, 94vw); max-height: 100%; overflow-y: auto; border-radius: 18px; border: 3px solid #c4c9cc;
         background: #101113; box-shadow: 0 24px 70px rgba(0,0,0,.8), 0 0 40px rgba(90,96,100,.4); animation: rise .3s ease;">
@@ -306,7 +218,7 @@
           </div>
           <sc-if value="{{ detailIsPlain }}" hint-placeholder-val="{{ false }}">
             <button onClick="{{ detailWin }}" style="cursor: pointer; border: 2px solid #fff; font-family: 'Anton'; font-size: 19px;
-              letter-spacing: 1px; color: #0b0b0c; background: linear-gradient(90deg,#c4c9cc,#e9edef); padding: 15px; border-radius: 10px;
+              letter-spacing: 1px; color: #fff; background: linear-gradient(90deg,#d21f2c,#ff4d3d); padding: 15px; border-radius: 10px;
               transition: filter .15s ease;" style-hover="filter: brightness(1.08);">MARK AS WON</button>
           </sc-if>
           <sc-if value="{{ detailIsWon }}" hint-placeholder-val="{{ false }}">
@@ -316,7 +228,7 @@
           <sc-if value="{{ detailIsSP1 }}" hint-placeholder-val="{{ false }}">
             <div style="display: flex; gap: 10px;">
               <button onClick="{{ detailStash }}" style="cursor: pointer; flex: 1; border: 2px solid #fff; font-family: 'Anton'; font-size: 19px;
-                letter-spacing: 1px; color: #0b0b0c; background: linear-gradient(90deg,#c4c9cc,#e9edef); padding: 14px; border-radius: 10px;
+                letter-spacing: 1px; color: #fff; background: linear-gradient(90deg,#d21f2c,#ff4d3d); padding: 14px; border-radius: 10px;
                 transition: filter .15s ease;" style-hover="filter: brightness(1.08);">STASH IT</button>
               <button onClick="{{ detailPass }}" style="cursor: pointer; flex: 1; border: 2px solid #8a9096; font-family: 'Anton'; font-size: 19px;
                 letter-spacing: 1px; color: #d9dde0; background: rgba(90,96,100,.35); padding: 14px; border-radius: 10px;
@@ -326,7 +238,7 @@
           </sc-if>
           <sc-if value="{{ detailIsSP2 }}" hint-placeholder-val="{{ false }}">
             <button onClick="{{ detailLock }}" style="cursor: pointer; border: 2px solid #fff; font-family: 'Anton'; font-size: 19px;
-              letter-spacing: 1px; color: #0b0b0c; background: linear-gradient(90deg,#c4c9cc,#e9edef); padding: 14px; border-radius: 10px;
+              letter-spacing: 1px; color: #fff; background: linear-gradient(90deg,#d21f2c,#ff4d3d); padding: 14px; border-radius: 10px;
               transition: filter .15s ease;" style-hover="filter: brightness(1.08);">LOCK IT IN — NO TAKEBACKS</button>
           </sc-if>
           <sc-if value="{{ detailIsAuction }}" hint-placeholder-val="{{ false }}">
@@ -353,7 +265,7 @@
                 color: #e9edef; font-family: 'Anton'; font-size: 17px; flex: 1; height: 48px; border-radius: 9px;">+25</button>
             </div>
             <button onClick="{{ endLiveBid }}" style="cursor: pointer; border: 2px solid #fff; font-family: 'Anton'; font-size: 19px;
-              letter-spacing: 1px; color: #0b0b0c; background: linear-gradient(90deg,#c4c9cc,#e9edef); padding: 15px; border-radius: 10px;
+              letter-spacing: 1px; color: #fff; background: linear-gradient(90deg,#d21f2c,#ff4d3d); padding: 15px; border-radius: 10px;
               transition: filter .15s ease;" style-hover="filter: brightness(1.08);">SOLD — END THE BID</button>
             <button onClick="{{ dropLiveBid }}" style="cursor: pointer; border: 2px solid #b5232d; background: rgba(181,35,45,.15);
               color: #ff9d9d; font-family: 'Anton'; font-size: 13px; padding: 10px; border-radius: 9px;">CANCEL BID — NO SALE</button>
@@ -367,7 +279,7 @@
 
   <!-- ===== SEE 2/3 CHOOSER ===== -->
   <sc-if value="{{ hasChooser }}" hint-placeholder-val="{{ false }}">
-    <div style="position: fixed; left: 0; right: 0; bottom: 0; top: 67px; z-index: 46;
+    <div style="position: fixed; left: 0; right: 0; bottom: 0; top: 143px; z-index: 46;
       display: flex; flex-direction: column; align-items: center;
       justify-content: center; gap: 20px; background: url('./photos/night.jpg') center / cover no-repeat; padding: 16px;">
       <div style="position: absolute; inset: 0; background: rgba(6,7,8,.88);"></div>
@@ -396,7 +308,7 @@
 
   <!-- ===== WIN TAKEOVER ===== -->
   <sc-if value="{{ overlayTeam }}" hint-placeholder-val="{{ false }}">
-    <div style="position: fixed; left: 0; right: 0; bottom: 0; top: 67px; z-index: 60; overflow: hidden;
+    <div style="position: fixed; left: 0; right: 0; bottom: 0; top: 143px; z-index: 60; overflow: hidden;
       background: url('./photos/aerial-bw.jpg') center 70% / cover no-repeat #060607;
       display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px;">
       <div style="position: absolute; inset: 0; background: {{ overlayTeam.color }}; opacity: .55; mix-blend-mode: multiply;"></div>
@@ -456,7 +368,7 @@
                 style="flex: 1; background: rgba(8,9,10,.65); border: 2px solid rgba(255,255,255,.6); border-radius: 10px;
                 color: #fff; font-family: 'Anton'; font-size: 18px; padding: 13px 16px; outline: none; text-align: center; letter-spacing: 1px;" />
               <button onClick="{{ crownWinner }}" style="cursor: pointer; border: 2px solid #fff; font-family: 'Anton'; font-size: 16px;
-                color: #0b0b0c; background: linear-gradient(90deg,#c4c9cc,#e9edef); padding: 0 24px; border-radius: 10px;
+                color: #fff; background: linear-gradient(90deg,#d21f2c,#ff4d3d); padding: 0 24px; border-radius: 10px;
                 transition: filter .15s ease;" style-hover="filter: brightness(1.08);">WON</button>
             </div>
           </div>
@@ -918,7 +830,7 @@ class Component extends DCLogic {
     }
 
     const modeBtn = (on) => ({
-      bg: on ? 'linear-gradient(90deg,#3a3f44,#6b7176)' : 'rgba(20,21,23,.85)',
+      bg: on ? 'linear-gradient(90deg,#7a1218,#d21f2c)' : 'rgba(20,21,23,.85)',
       color: on ? '#fff' : '#b9bfc3',
       border: on ? '#c4c9cc' : 'rgba(165,172,175,.5)',
     });
